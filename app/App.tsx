@@ -1,35 +1,14 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Provider as PaperProvider } from 'react-native-paper';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import StartScreen from './src/screens/StartScreen';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>A Life's Random Journey</Text>
-      <Text style={styles.subtitle}>Entorno configurado correctamente ✅</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <PaperProvider>
+        <StartScreen />
+      </PaperProvider>
+    </SafeAreaProvider>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#1a1a1a',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#ffffff',
-    textAlign: 'center',
-    marginBottom: 10,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#cccccc',
-    textAlign: 'center',
-  },
-}); 
+} 

@@ -10,17 +10,18 @@
     "tunnel": "expo start --tunnel"
   },
   "dependencies": {
+    "@types/react": "~18.3.12",
+    "axios": "^1.7.7",
     "expo": "~52.0.46",
+    "expo-av": "~15.0.2",
+    "expo-font": "~13.0.4",
+    "expo-secure-store": "~14.0.1",
     "expo-status-bar": "~2.0.0",
     "react": "18.3.1",
     "react-native": "0.76.9",
     "react-native-paper": "^5.12.5",
-    "expo-secure-store": "~14.0.1",
-    "expo-av": "~15.0.2",
-    "expo-font": "~13.0.4",
-    "axios": "^1.7.7",
+    "react-native-safe-area-context": "^5.4.1",
     "react-native-size-matters": "^0.4.2",
-    "@types/react": "~18.3.12",
     "typescript": "^5.3.0"
   },
   "devDependencies": {
@@ -31,7 +32,9 @@
   "expo": {
     "doctor": {
       "reactNativeDirectoryCheck": {
-        "exclude": ["typescript"],
+        "exclude": [
+          "typescript"
+        ],
         "listUnknownPackages": false
       }
     }

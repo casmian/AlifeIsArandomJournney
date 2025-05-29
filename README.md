@@ -2,110 +2,82 @@
 
 > Un RPG de texto donde no eliges quién eres. Solo vives lo que te toca.
 
-## 🧠 Descripción
+**Un RPG de texto único e inmersivo**, donde cada partida es una vida diferente, **inspirado en la simulación profunda y la generación de narrativa emergente de Dwarf Fortress**. Con una **interfaz de usuario que evoca el estilo pixelado y nostálgico de Undertale/Deltarune**, optimizada para Android.
 
-Este es un **RPG de texto único e inmersivo**, donde cada partida es una vida diferente, **inspirado en la simulación profunda y la generación de narrativa emergente de Dwarf Fortress**. No eliges tu nombre, género, clase social ni destino inicial. Solo recibes lo que el mundo decide darte… y decides qué hacer con ello.
+## 🎯 **Filosofía del Juego**
 
-El juego cuenta con una **interfaz de usuario que evoca el estilo pixelado y nostálgico de Undertale/Deltarune**, ejecutándose con fluidez en dispositivos Android y acompañada de **audio de alta calidad** para una inmersión profunda.
+*"No eliges quién eres. Solo vives lo que te toca."*
 
-## 🛠️ Tecnologías
+- 🧬 **Generación procedural profunda** de personaje, familia y mundo inicial
+- 🌍 **NPCs dinámicos** con historias que se cruzan condicionalmente  
+- 🎭 **Arcos de historia** específicos por localización
+- ⚡ **Sistemas interconectados** donde todo puede afectar todo
+- 📱 **Experiencia offline total** en Android
 
-- **Python** con **Kivy** para la interfaz de usuario
-- **SQLite** para persistencia local de datos
-- **Buildozer** para compilación Android
-- **Pixel Art** estilo retro para gráficos
-- **Audio de alta calidad** para inmersión
+## 🛠️ **Stack Tecnológico**
 
-## 📁 Estructura del Proyecto
+- **Framework**: Flutter 3.x + Dart
+- **UI**: Widgets nativos + Custom Paint para pixel art
+- **Audio**: audioplayers package para música CC0
+- **Fuentes**: Google Fonts + custom pixel fonts  
+- **Base de datos**: Hive (local NoSQL) + SQLite
+- **Compilación**: Flutter build apk/appbundle para Android
 
-```
-proyecto/
-├── game/                   # Código principal de la aplicación
-│   ├── data/              # Datos del juego (JSON)
-│   │   ├── nodes/         # Nodos narrativos
-│   │   ├── npcs/          # Datos de NPCs
-│   │   ├── locations/     # Ubicaciones y arcos
-│   │   └── items/         # Objetos del juego
-│   ├── assets/            # Recursos multimedia
-│   │   ├── images/        # Pixel art (PNG)
-│   │   ├── audio/         # Música y efectos (OGG, MP3)
-│   │   └── fonts/         # Fuentes pixeladas
-│   ├── logic/             # Lógica del juego
-│   ├── db/                # Base de datos SQLite
-│   ├── ui/                # Interfaz de usuario (Kivy)
-│   ├── main.py            # Punto de entrada
-│   └── buildozer.spec     # Configuración Android
-├── requirements.txt       # Dependencias Python
-└── README.md             # Este archivo
-```
+## 🎨 **Assets Incluidos**
 
-## 🚀 Instalación y Desarrollo
+### 🎵 **Música CC0:**
+- **Menu Music**: "The Bard's Tale" por RandomMind
+- **Battle Music**: "8-Bit Battle Loop" por Wolfgang_  
+- **Battle Theme**: "8 bit battle theme" por celestialghost8
 
-### Requisitos previos
-- Python 3.8+
-- Kivy
-- Buildozer (para compilación Android)
+### ✍️ **Fuentes Pixeladas:**
+- **Press Start 2P**: Fuente principal retro
+- **Determination Mono**: Estilo Undertale/Deltarune
 
-### Configuración del entorno
+## 🚀 **Comandos de Desarrollo**
 
 ```bash
-# Instalar dependencias
-pip install -r requirements.txt
+# Crear proyecto Flutter
+flutter create . --org com.alifegame
 
-# Para desarrollo en Android, instalar buildozer
-pip install buildozer
+# Ejecutar en desarrollo
+flutter run
+
+# Compilar APK
+flutter build apk
+
+# Compilar para Google Play Store
+flutter build appbundle
 ```
 
-### Ejecutar en desarrollo
+## 📁 **Estructura del Proyecto**
 
-```bash
-cd game
-python main.py
+```
+assets/
+├── audio/          # 🎵 Música CC0 y efectos
+│   ├── menu_music.mp3
+│   ├── battle_music.ogg
+│   └── battle_theme.wav
+└── fonts/          # ✍️ Fuentes pixeladas
+    ├── PressStart2P-Regular.ttf
+    └── pixel_font.ttf
 ```
 
-### Compilar para Android
+## 🎮 **Estado del Proyecto**
 
-```bash
-cd game
-buildozer android debug
-```
+**🔄 En Migración: Python+Kivy → Flutter+Dart**
 
-## 🎯 Características Principales
+- ✅ **Assets preservados**: Música CC0 y fuentes pixeladas
+- ✅ **Concepto intacto**: Todas las mecánicas de juego planificadas
+- 🔄 **Implementación**: Próximo paso - setup inicial Flutter
+- 🎯 **Objetivo**: APK confiable para Google Play Store
 
-- **Generación de Vida Profunda**: Cada partida genera una historia única
-- **NPCs Complejos**: Personajes con historias emergentes
-- **Arcos de Localización**: Historias basadas en ubicaciones
-- **Sistema de Legado**: Tus acciones afectan futuras partidas
-- **Offline Completo**: Toda la lógica reside en el dispositivo
-- **Estilo Retro**: UI pixelada inspirada en Undertale/Deltarune
+## 📜 **Licencias**
 
-## 🎵 Música y Audio
+- **Código**: MIT License
+- **Música**: CC0 (ver ATTRIBUTION.txt)
+- **Fuentes**: Open Font License
 
-- **"The Bard's Tale"** - Menú principal (CC0)
-- **"8-Bit Battle Loop"** - Combates normales (CC0)
-- **"8 bit battle theme"** - Batallas intensas (CC0)
-- **SFX Recomendados** - Kenney.nl UI Audio Pack
+---
 
-## ✨ Estado Actual (v0.1)
-
-**✅ Completado:**
-- 🖤 Interfaz estilo Undertale/Deltarune/Celeste con fondo negro
-- 🎵 Sistema de audio completo con música de fondo  
-- 🎨 Fuentes pixeladas (Press Start 2P + Determination Mono)
-- ✨ Animaciones sutiles (breathing, fade, glow, typewriter)
-- 🎛️ Controles de audio (play/stop, volumen, toggle)
-- 📱 Preparado para compilación Android
-
-**🔄 En desarrollo:**
-- Sistema de juego principal (next step)
-- Lógica de generación de vidas
-- NPCs dinámicos
-- Arcos de historia por localización
-
-## 📜 Licencia
-
-Proyecto personal en desarrollo.
-
-## 🤝 Contribución
-
-Proyecto en fase de desarrollo inicial.
+*Un proyecto que combina la profundidad narrativa de Dwarf Fortress con la estética nostálgica de Undertale, optimizado para la experiencia móvil moderna.*

@@ -141,20 +141,20 @@ El juego no premia la bondad, ni castiga la maldad. Simplemente te da libertad. 
 ## 🛠️ TECNOLOGÍAS Y ARQUITECTURA
 
 ### **Tecnologías Principales:**
-- **Framework**: Python + Kivy 2.3.1
-- **UI**: Archivos .kv + animaciones CSS-like
-- **Audio**: SoundLoader de Kivy
-- **Fuentes**: Press Start 2P + Determination Mono
-- **Base de datos**: SQLite local
-- **Compilación**: Buildozer para Android
+- **Framework**: Flutter 3.x + Dart
+- **UI**: Widgets nativos + Custom Paint para pixel art
+- **Audio**: audioplayers package para música CC0
+- **Fuentes**: Google Fonts + custom pixel fonts
+- **Base de datos**: Hive (local NoSQL) + SQLite para datos complejos
+- **Compilación**: Flutter build apk/appbundle para Android
 
-### **Motor del Juego y Interfaz de Usuario (Todo en Python - Local en el Dispositivo Android):**
-* **Lenguaje:** **Python**
-* **Framework UI:** **Kivy** (para el renderizado de la interfaz estilo pixel art y retro, y manejo de eventos)
-* **Empaquetado Android (APK/AAB):** **Buildozer** (para compilar la aplicación Kivy en un APK/AAB firmable para Android y publicable en Google Play Store)
-* **Base de Datos Local:** **SQLite** (gestionada por Python, posiblemente con SQLAlchemy)
-* **Librerías Python:** `json`, `random`, `numpy` (si se requieren cálculos numéricos), librerías para manejo de texto/cadenas complejas
-* **Manejo de Audio:** Funcionalidades de audio de Kivy
+### **Motor del Juego y Interfaz de Usuario (Flutter - Nativo Android):**
+* **Lenguaje:** **Dart**
+* **Framework UI:** **Flutter** (para renderizado nativo, animations fluidas, y pixel art con Custom Paint)
+* **Empaquetado Android (APK/AAB):** **Flutter build** (compilación nativa optimizada para Google Play Store)
+* **Base de Datos Local:** **Hive** (NoSQL rápido) + **SQLite** (para consultas complejas)
+* **Packages Dart:** `json_annotation`, `dart:math`, `dart:collection` para lógica de juego
+* **Manejo de Audio:** `audioplayers` package con soporte completo para loops y control de volumen
 
 ---
 
@@ -195,35 +195,44 @@ El juego no premia la bondad, ni castiga la maldad. Simplemente te da libertad. 
 
 ```
 proyecto/
-├── game/                   # 🎮 Código principal de la aplicación
-│   ├── main.py            # 🚀 Punto de entrada principal
-│   ├── ui/                # 🖼️ Archivos .kv de interfaz Kivy
-│   │   ├── main_menu.kv   # 📋 Menú principal
-│   │   └── game_screen.kv # 🎮 Pantalla de juego
-│   ├── assets/            # 🎨 Recursos multimedia
-│   │   ├── audio/         # 🎵 Música CC0 y efectos
-│   │   ├── fonts/         # ✍️ Fuentes pixeladas
-│   │   └── images/        # 🖼️ Pixel art
-│   ├── logic/             # 🧠 Lógica del juego (futuro)
-│   │   ├── world_generator.py# Generación inicial de mundo, personaje y familia
-│   │   ├── story_engine.py   # Gestión de ramificaciones, avance narrativo
-│   │   ├── character.py      # Modelo de personaje y atributos
-│   │   ├── world_events.py   # Lógica de eventos aleatorios y emergentes
-│   │   ├── npc_manager.py    # Lógica para gestión de NPCs
-│   │   ├── location_arcs.py  # Lógica para gestionar arcos de historia
-│   │   ├── legacy_system.py  # Lógica de Legado y Reencarnación
-│   │   └── utils.py          # Utilidades diversas
-│   ├── data/              # 📊 Datos JSON del juego
-│   │   ├── nodes/         # Archivos JSON de nodos narrativos
-│   │   ├── npcs/          # Datos de NPCs fijos
-│   │   ├── locations/     # Datos de ubicaciones y arcos de historia
-│   │   └── items/         # Datos de objetos
-│   ├── db/                # 💾 Base de datos SQLite
-│   │   └── game.db        # Archivo de la base de datos SQLite
-│   └── buildozer.spec     # 📱 Configuración Android
+├── lib/                    # 🎮 Código principal Flutter/Dart
+│   ├── main.dart          # 🚀 Punto de entrada principal
+│   ├── screens/           # 🖼️ Pantallas de la aplicación
+│   │   ├── main_menu_screen.dart   # 📋 Menú principal
+│   │   └── game_screen.dart        # 🎮 Pantalla de juego
+│   ├── widgets/           # 🧩 Widgets personalizados Undertale-style
+│   │   ├── undertale_text_box.dart # 💬 Caja de texto estilo Undertale
+│   │   ├── pixel_button.dart       # 🔘 Botones pixelados
+│   │   └── breathing_widget.dart   # ✨ Animaciones sutiles
+│   ├── logic/             # 🧠 Lógica del juego
+│   │   ├── world_generator.dart    # Generación inicial de mundo, personaje y familia
+│   │   ├── story_engine.dart       # Gestión de ramificaciones, avance narrativo
+│   │   ├── character.dart          # Modelo de personaje y atributos
+│   │   ├── world_events.dart       # Lógica de eventos aleatorios y emergentes
+│   │   ├── npc_manager.dart        # Lógica para gestión de NPCs
+│   │   ├── location_arcs.dart      # Lógica para gestionar arcos de historia
+│   │   ├── legacy_system.dart      # Lógica de Legado y Reencarnación
+│   │   └── utils.dart              # Utilidades diversas
+│   ├── services/          # 🔧 Servicios de la aplicación
+│   │   ├── audio_manager.dart      # 🎵 Gestión de audio y música
+│   │   └── database_service.dart   # 💾 Servicio de base de datos
+│   └── models/            # 📊 Modelos de datos
+│       ├── game_node.dart         # Modelo de nodos narrativos
+│       ├── npc.dart               # Modelo de NPCs
+│       └── location.dart          # Modelo de ubicaciones
+├── assets/                # 🎨 Recursos multimedia
+│   ├── audio/             # 🎵 Música CC0 y efectos
+│   ├── fonts/             # ✍️ Fuentes pixeladas
+│   └── images/            # 🖼️ Pixel art
+├── data/                  # 📊 Datos JSON del juego
+│   ├── nodes/             # Archivos JSON de nodos narrativos
+│   ├── npcs/              # Datos de NPCs fijos
+│   ├── locations/         # Datos de ubicaciones y arcos de historia
+│   └── items/             # Datos de objetos
+├── android/               # 📱 Configuración Android específica
+├── pubspec.yaml           # 📦 Dependencias Flutter/Dart
 ├── .gitignore             # 🚫 Archivos a ignorar
-├── requirements.txt       # 📦 Dependencias Python
-└── README.md              # 📖 Documentación
+└── README.md              # 📄 Documentación
 ```
 
 ---
@@ -232,50 +241,67 @@ proyecto/
 
 ### **Comandos Principales:**
 ```bash
-# ✅ Ejecutar aplicación (CORRECTO para PowerShell)
-cd game; python main.py
+# ✅ Ejecutar aplicación en desarrollo
+flutter run
 
-# ❌ Este comando NO funciona en PowerShell:
-# cd game && python main.py  # && no es válido en PowerShell
+# ✅ Ejecutar en dispositivo Android específico
+flutter run -d android
 
-# Instalar dependencias
-pip install -r requirements.txt
+# ✅ Hot reload durante desarrollo
+# r - hot reload
+# R - hot restart
 
-# Preparar para Android
-cd game; buildozer init
-cd game; buildozer android debug
+# ✅ Compilar APK para distribución
+flutter build apk
+
+# ✅ Compilar AAB para Google Play Store
+flutter build appbundle
+
+# ✅ Instalar dependencias
+flutter pub get
+
+# ✅ Limpiar build cache
+flutter clean
 ```
 
 ### **Convenciones de Código:**
 
-#### Python (main.py)
-```python
-# Siempre usar encoding UTF-8
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+#### Dart (main.dart y archivos .dart)
+```dart
+// Siempre usar imports organizados:
+// 1. Dart core libraries
+// 2. Flutter framework
+// 3. Third-party packages
+// 4. Local modules
 
-# Imports organizados:
-# 1. Estándar de Python
-# 2. Kivy core
-# 3. Kivy uix
-# 4. Módulos locales
+import 'dart:math';
+import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'screens/main_menu_screen.dart';
 
-# Clases con docstrings descriptivos
-class GameScreen(BoxLayout):
-    """Pantalla principal del juego con interfaz retro"""
+// Clases con documentación descriptiva
+/// Pantalla principal del juego con interfaz retro Undertale-style
+class GameScreen extends StatefulWidget {
+  const GameScreen({Key? key}) : super(key: key);
+}
 ```
 
-#### Archivos .kv (UI)
-```yaml
-# Comentarios descriptivos en español
-# Usar spacing y padding consistentes
-# Colores en formato rgba (0-1)
-# IDs descriptivos en snake_case
+#### Widgets Personalizados
+```dart
+// Widgets reutilizables con parámetros configurables
+// Usar const constructors cuando sea posible
+// Naming descriptivo en camelCase
 
-<MainMenuScreen>:
-    orientation: 'vertical'
-    spacing: 0
-    padding: [20, 20, 20, 20]
+class UndertaleTextBox extends StatelessWidget {
+  const UndertaleTextBox({
+    Key? key,
+    required this.text,
+    this.isSelected = false,
+  }) : super(key: key);
+  
+  final String text;
+  final bool isSelected;
+}
 ```
 
 ---
@@ -286,28 +312,28 @@ class GameScreen(BoxLayout):
 {
   "id": "evento_inicio_pobreza",
   "type": "start",
-  "location_arc": "aldea_campesina",
+  "locationArc": "aldea_campesina",
   "title": "Nacimiento en la Pobreza",
-  "image": "birth_poor_village.png",
+  "imageAsset": "assets/images/birth_poor_village.png",
   "text": "Naciste en una aldea humilde, rodeado de hambre y enfermedades. El aire era pesado, la esperanza escasa.",
-  "music": "melancholy_theme.ogg",
-  "sfx": "baby_cry.wav",
+  "musicAsset": "assets/audio/melancholy_theme.ogg",
+  "sfxAsset": "assets/audio/baby_cry.wav",
   "options": [
     {
       "text": "Intentar trabajar desde joven",
-      "next_node_id": "evento_trabajo_duro"
+      "nextNodeId": "evento_trabajo_duro"
     },
     {
       "text": "Buscar educación a toda costa",
-      "next_node_id": "evento_estudio"
+      "nextNodeId": "evento_estudio"
     }
   ],
   "effects": {
-    "health_change": -5,
-    "money_change": 0,
-    "memory_add": "Primeros años de privación."
+    "healthChange": -5,
+    "moneyChange": 0,
+    "memoryAdd": "Primeros años de privación."
   },
-  "npcs_present": ["OldManGrumpy", "YoungMaria"]
+  "npcsPresent": ["OldManGrumpy", "YoungMaria"]
 }
 ```
 
@@ -384,68 +410,80 @@ git push -u origin main
 
 ### **⚠️ Lista de Errores Documentados**
 
-#### **1. Error de Pantalla Negra al Iniciar**
-- **Síntomas**: La aplicación inicia pero muestra solo pantalla negra
+#### **1. Error de Widget Tree**
+- **Síntomas**: `The widget which was the parent of the widget that originally had the global key`
 - **Causas Comunes**:
-  - Archivos `.kv` no se cargan correctamente en `build()`
-  - Errores de sintaxis en archivos `.kv` (especialmente escapes)
-- **Solución**: Verificar que `Builder.load_file()` se llame antes de crear las pantallas
+  - Keys duplicadas en widgets
+  - Cambios de estado sin setState()
+- **Solución**: Usar UniqueKey() o keys apropiadas
 
-#### **2. Error de Escape en Archivos .kv**
-- **Síntomas**: `unexpected character after line continuation character`
-- **Causas**: Escape incorrecto de comillas simples: `\\'` en lugar de `\'`
+#### **2. Error de Assets Not Found**
+- **Síntomas**: `Unable to load asset: assets/audio/music.mp3`
+- **Causas**: Assets no declarados en pubspec.yaml
 - **Solución Correcta**:
   ```yaml
-  # ❌ INCORRECTO:
-  text: 'A LIFE\\'S\\nJOURNEY'
-  
-  # ✅ CORRECTO:
-  text: 'A LIFE\'S\nJOURNEY'
+  # pubspec.yaml
+  flutter:
+    assets:
+      - assets/audio/
+      - assets/fonts/
+      - assets/images/
   ```
 
-#### **3. Métodos Faltantes en AudioManager**
-- **Síntomas**: `'AudioManager' object has no attribute 'load_menu_music'`
-- **Solución**: Siempre agregar método wrapper específico:
-  ```python
-  def load_menu_music(self):
-      """Cargar música específica del menú"""
-      menu_music_path = "assets/audio/menu_music.mp3"
-      return self.load_background_music(menu_music_path)
+#### **3. Error de Null Safety**
+- **Síntomas**: `The argument type 'String?' can't be assigned to the parameter type 'String'`
+- **Causas**: Variables nullable sin verificación
+- **Solución**:
+  ```dart
+  // ❌ INCORRECTO:
+  String title = data['title'];
+  
+  // ✅ CORRECTO:
+  String title = data['title'] ?? 'Default Title';
   ```
 
-#### **4. Callbacks de UI Faltantes**
-- **Síntomas**: `'LifeJourneyApp' object has no attribute 'on_option_selected'`
-- **Causa**: Archivos `.kv` referencian métodos que no existen en Python
-- **Solución**: Verificar todos los `on_press:` y `on_release:` en archivos `.kv`
+#### **4. Error de State Lifecycle**
+- **Síntomas**: `setState() called after dispose()`
+- **Causas**: Llamadas async que actualizan estado después de dispose
+- **Solución**:
+  ```dart
+  if (mounted) {
+    setState(() {
+      // Update state
+    });
+  }
+  ```
 
-#### **5. Problemas de PowerShell en Windows**
-- **Síntomas**: `El token '&&' no es un separador de instrucciones válido`
-- **Solución**: 
-  ```bash
-  # ❌ NO funciona en PowerShell:
-  cd game && python main.py
+#### **5. Error de Audio Player**
+- **Síntomas**: `PlatformException: Error loading audio`
+- **Causas**: Paths incorrectos o formatos no soportados
+- **Solución**:
+  ```dart
+  // ✅ CORRECTO para assets:
+  await audioPlayer.play(AssetSource('audio/music.mp3'));
   
-  # ✅ CORRECTO en PowerShell:
-  cd game; python main.py
+  // ✅ CORRECTO para archivos locales:
+  await audioPlayer.play(DeviceFileSource(filePath));
   ```
 
 ### **🔧 Checklist de Verificación Pre-Commit**
-1. ✅ Verificar sintaxis de archivos `.kv` (escapes correctos)
-2. ✅ Confirmar que todos los métodos referenciados en `.kv` existen
-3. ✅ Cargar archivos `.kv` explícitamente en `build()`
-4. ✅ Probar comandos de PowerShell antes de documentar
-5. ✅ Verificar que todos los recursos existen antes de referenciarlos
+1. ✅ Verificar que todos los assets estén en pubspec.yaml
+2. ✅ Confirmar que no hay errores de null safety
+3. ✅ Probar hot reload funciona correctamente
+4. ✅ Verificar que flutter analyze no muestre warnings
+5. ✅ Confirmar que todos los imports son correctos
 
 ### **🚨 Al Encontrar Errores Nuevos**
 **Cuando se encuentren errores no documentados aquí:**
-1. Agregar descripción del síntoma
+1. Agregar descripción del síntoma con stack trace
 2. Documentar la causa raíz
-3. Proporcionar solución exacta
+3. Proporcionar solución exacta con código
 4. Actualizar el checklist si es necesario
 
 ---
 
 *Estas reglas aseguran consistencia en el desarrollo y mantienen la visión del proyecto enfocada en la experiencia retro auténtica y la simulación profunda de vida.*
+
 
 
 

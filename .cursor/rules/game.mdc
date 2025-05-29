@@ -1,0 +1,146 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# 🎮 A Life Is A Random Journey - Reglas de Cursor
+
+## Contexto del Proyecto
+Este es un **RPG de texto único** desarrollado en **Python con Kivy** para Android. El juego se inspira en Undertale/Deltarune para la UI y en Dwarf Fortress para la generación de narrativa emergente.
+
+## Estructura del Proyecto
+```
+proyecto/
+├── game/                   # 🎮 Código principal de la aplicación
+│   ├── main.py            # 🚀 Punto de entrada principal
+│   ├── ui/                # 🖼️ Archivos .kv de interfaz Kivy
+│   │   ├── main_menu.kv   # 📋 Menú principal
+│   │   └── game_screen.kv # 🎮 Pantalla de juego
+│   ├── assets/            # 🎨 Recursos multimedia
+│   │   ├── audio/         # 🎵 Música CC0 y efectos
+│   │   ├── fonts/         # ✍️ Fuentes pixeladas
+│   │   └── images/        # 🖼️ Pixel art
+│   ├── logic/             # 🧠 Lógica del juego (futuro)
+│   ├── data/              # 📊 Datos JSON del juego
+│   ├── db/                # 💾 Base de datos SQLite
+│   └── buildozer.spec     # 📱 Configuración Android
+├── .gitignore             # 🚫 Archivos a ignorar
+├── requirements.txt       # 📦 Dependencias Python
+└── README.md              # 📖 Documentación
+```
+
+## Reglas de Desarrollo
+
+### 🎯 Objetivos Específicos
+- **Interfaz retro auténtica**: Estilo Undertale/Deltarune/Celeste
+- **Audio inmersivo**: Música CC0 de alta calidad
+- **Experiencia offline**: Todo en el dispositivo
+- **Optimizado Android**: Compilación con Buildozer
+
+### 🔧 Tecnologías Principales
+- **Framework**: Python + Kivy 2.3.1
+- **UI**: Archivos .kv + animaciones CSS-like
+- **Audio**: SoundLoader de Kivy
+- **Fuentes**: Press Start 2P + Determination Mono
+- **Base de datos**: SQLite local
+- **Compilación**: Buildozer para Android
+
+### 📋 Convenciones de Código
+
+#### Python (main.py)
+```python
+# Siempre usar encoding UTF-8
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+# Imports organizados:
+# 1. Estándar de Python
+# 2. Kivy core
+# 3. Kivy uix
+# 4. Módulos locales
+
+# Clases con docstrings descriptivos
+class GameScreen(BoxLayout):
+    """Pantalla principal del juego con interfaz retro"""
+```
+
+#### Archivos .kv (UI)
+```yaml
+# Comentarios descriptivos en español
+# Usar spacing y padding consistentes
+# Colores en formato rgba (0-1)
+# IDs descriptivos en snake_case
+
+<MainMenuScreen>:
+    orientation: 'vertical'
+    spacing: 0
+    padding: [20, 20, 20, 20]
+```
+
+### 🎨 Estilo Visual
+- **Fondo**: Negro puro `rgba: 0, 0, 0, 1`
+- **Texto principal**: Blanco `rgba: 1, 1, 1, 1`
+- **Acentos**: Amarillo retro `rgba: 1, 1, 0.7, 1`
+- **Bordes**: Blancos gruesos para estilo pixelado
+- **Fuentes**: Press Start 2P (principal), pixel_font.ttf (alternativa)
+
+### 🎵 Audio Guidelines
+- **Fuentes**: Solo OpenGameArt.org, Kenney.nl
+- **Licencias**: Preferir CC0, máximo CC-BY
+- **Formatos**: MP3 (menú), OGG (juego), WAV (efectos)
+- **Volumen**: Sistema de control dinámico implementado
+- **Loops**: Música debe hacer loop seamless
+
+### 📁 Organización de Archivos
+- **Audio**: `assets/audio/` - Separar por tipo (menu_music.mp3, battle_music.ogg)
+- **Imágenes**: `assets/images/` - PNG optimizadas, pixel art
+- **Fuentes**: `assets/fonts/` - Solo TTF, nombres descriptivos
+- **UI**: `ui/` - Un archivo .kv por pantalla
+- **Datos**: `data/` - JSON para configuración del juego
+
+### 🚀 Comandos de Desarrollo
+```bash
+# Ejecutar aplicación (desde directorio raíz)
+cd game && python main.py
+
+# Instalar dependencias
+pip install -r requirements.txt
+
+# Preparar para Android
+cd game && buildozer init
+cd game && buildozer android debug
+```
+
+### 🎮 Características Implementadas (v0.1)
+- ✅ Menú principal con animaciones
+- ✅ Sistema de audio completo
+- ✅ Fuentes pixeladas cargadas
+- ✅ Interfaz negro retro
+- ✅ Controles de volumen
+- ✅ Música CC0 integrada
+- ✅ Estructura preparada para juego
+
+### 🔄 Próximos Pasos
+1. **Sistema de juego principal**: Generación de vidas aleatorias
+2. **NPCs dinámicos**: Personajes condicionales
+3. **Arcos de historia**: Narrativa basada en ubicaciones
+4. **Sistema de tiempo**: Envejecimiento y consecuencias
+5. **Base de datos**: Persistencia de progreso
+
+### 📱 Consideraciones Android
+- **Resolución**: 480x800 para desarrollo, responsive para dispositivos
+- **Performance**: Optimizar assets y loops de audio
+- **Permisos**: Solo storage para guardar partidas
+- **Buildozer**: Configurado para API 33, arquitecturas ARM
+
+### 🎯 Filosofía del Juego
+**"No eliges quién eres. Solo vives lo que te toca."**
+- Generación completamente aleatoria de personaje inicial
+- Decisiones con consecuencias permanentes
+- NPCs que aparecen según tu trayectoria de vida
+- Sistema de legado entre partidas
+- Experiencia única en cada playthrough
+
+---
+*Estas reglas aseguran consistencia en el desarrollo y mantienen la visión del proyecto enfocada en la experiencia retro auténtica.*
+

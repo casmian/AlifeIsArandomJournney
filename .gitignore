@@ -79,8 +79,11 @@ temp/
 *.bak
 *.orig
 
-## Cursor IDE (mantener configuración local)
+## Cursor IDE
 .cursor/
+# Pero permitir las reglas del proyecto
+!.cursor/rules/
+!.cursor/rules/*.mdc
 
 ## Archivos de desarrollo temporal
 *_temp.py

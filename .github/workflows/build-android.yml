@@ -71,9 +71,13 @@ jobs:
         ls -la buildozer.spec || echo "❌ No buildozer.spec found"
         echo "🔍 Contenido del buildozer.spec:"
         cat buildozer.spec | head -20 || echo "❌ No se puede leer buildozer.spec"
+        echo "🔍 Verificando configuración bin_dir:"
+        grep "bin_dir" buildozer.spec || echo "❌ bin_dir no configurado"
+        echo "🔍 Creando directorio bin/ si no existe:"
+        mkdir -p bin
         echo "🔍 Estructura del directorio:"
         ls -la
-        
+    
     - name: Build APK with detailed logging
       run: |
         cd game
@@ -87,14 +91,17 @@ jobs:
         echo "🔍 Búsqueda COMPLETA de archivos APK..."
         echo "📁 Búsqueda recursiva desde directorio actual:"
         find . -name "*.apk" -type f -exec ls -la {} \; || echo "❌ No se encontraron APKs en directorio actual"
+        echo "📁 Búsqueda en bin/ (configurado en buildozer.spec):"
+        ls -la bin/ 2>/dev/null || echo "❌ No existe directorio bin/"
+        find bin/ -name "*.apk" -type f -exec ls -la {} \; 2>/dev/null || echo "❌ No APKs en bin/"
         echo "📁 Búsqueda en .buildozer:"
         find .buildozer -name "*.apk" -type f -exec ls -la {} \; 2>/dev/null || echo "❌ No se encontraron APKs en .buildozer"
-        echo "📁 Contenido de bin/:"
-        ls -la bin/ 2>/dev/null || echo "❌ No existe directorio bin/"
-        echo "📁 Contenido de .buildozer/android/platform/build-**/outputs/:"
-        find .buildozer -path "*/outputs/*" -name "*.apk" -exec ls -la {} \; 2>/dev/null || echo "❌ No APKs en outputs"
-        echo "📁 Contenido de .buildozer/android/platform/build-**/build/:"
-        find .buildozer -path "*/build/*" -name "*.apk" -exec ls -la {} \; 2>/dev/null || echo "❌ No APKs en build"
+        echo "📁 Búsqueda específica en outputs de gradle:"
+        find .buildozer -path "*/outputs/apk/*" -name "*.apk" -exec ls -la {} \; 2>/dev/null || echo "❌ No APKs en gradle outputs"
+        echo "📁 Búsqueda en android platform build:"
+        find .buildozer/android/platform -name "*.apk" -type f -exec ls -la {} \; 2>/dev/null || echo "❌ No APKs en android platform"
+        echo "🔍 Verificando si buildozer completó exitosamente:"
+        grep -i "success\|complete\|finished" build.log | tail -5 || echo "❌ No hay indicadores de éxito en el log"
     
     - name: Create bin directory and copy APKs
       if: always()

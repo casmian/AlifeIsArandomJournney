@@ -16,10 +16,13 @@ import platform
 import os
 import math
 import time
+import random
 
 # Configuración de ventana para desarrollo
 if platform.system() != 'Android':
-    Window.size = (480, 800)  # Simular pantalla de móvil en desarrollo
+    Window.size = (360, 640)  # Tamaño más realista para móvil moderno (9:16)
+    Window.minimum_width = 360
+    Window.minimum_height = 640
 
 
 class AudioManager:
@@ -190,348 +193,233 @@ class GameScreen(BoxLayout):
     
     def apply_pixel_font_if_available(self):
         """Aplicar fuente pixelada si está disponible"""
-        # Primero intentar con PressStart2P, luego con pixel_font.ttf genérica
+        # Priorizar pixel_font.ttf por defecto
         font_paths = [
-            'assets/fonts/PressStart2P-Regular.ttf',
-            'assets/fonts/pixel_font.ttf'
+            "assets/fonts/pixel_font.ttf",      # Determination Mono (prioridad)
+            "assets/fonts/PressStart2P-Regular.ttf"  # Backup
         ]
         
-        font_applied = False
-        for pixel_font_path in font_paths:
-            if os.path.exists(pixel_font_path):
-                print(f"✅ Aplicando fuente pixelada: {pixel_font_path}")
+        for font_path in font_paths:
+            if os.path.exists(font_path):
+                print(f"✅ Aplicando fuente pixelada: {font_path}")
                 
-                # Aplicar a elementos de texto
-                if hasattr(self.ids, 'narrative_text'):
-                    self.ids.narrative_text.font_name = pixel_font_path
+                # Aplicar a todos los labels del menú
+                if hasattr(self, 'ids'):
+                    if hasattr(self.ids, 'title_label'):
+                        self.ids.title_label.font_name = font_path
+                    if hasattr(self.ids, 'subtitle_label'):
+                        self.ids.subtitle_label.font_name = font_path
+                    if hasattr(self.ids, 'start_button'):
+                        self.ids.start_button.font_name = font_path
+                    if hasattr(self.ids, 'config_button'):
+                        self.ids.config_button.font_name = font_path
+                    if hasattr(self.ids, 'exit_button'):
+                        self.ids.exit_button.font_name = font_path
                 
-                if hasattr(self.ids, 'option_1'):
-                    self.ids.option_1.font_name = pixel_font_path
-                    
-                if hasattr(self.ids, 'option_2'):
-                    self.ids.option_2.font_name = pixel_font_path
-                
-                font_applied = True
-                break
+                self.current_font = font_path
+                return True
         
-        if not font_applied:
-            print(f"📝 Usando fuente por defecto (fuente pixelada no encontrada)")
+        print("📝 Usando fuente por defecto (fuente pixelada no encontrada)")
+        return False
 
 
 class MainMenuScreen(BoxLayout):
-    """Pantalla de menú principal estilo Undertale con animaciones y audio"""
+    """Pantalla del menú principal con interfaz retro optimizada para móvil"""
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         
-        # Variables para animaciones del menú
-        self.menu_animation_time = 0
-        self.title_pulse_direction = 1
-        self.button_glow_intensity = 0.8
-        
-        # Aplicar fuente después de la inicialización
+        # Programar aplicación de fuente después de construcción
         Clock.schedule_once(self.apply_pixel_font_if_available, 0.1)
         
-        # Iniciar animaciones del menú
-        Clock.schedule_interval(self.update_menu_animations, 0.05)  # 20fps para suavidad
+        # Variables para animaciones
+        self.breathing_direction = 1
+        self.fade_alpha = 1.0
+        self.glow_intensity = 0.5
         
-        # Animación de entrada del menú
-        Clock.schedule_once(self.animate_menu_entrance, 0.2)
+        # Programar animaciones
+        Clock.schedule_interval(self.update_animations, 1/30)  # 30 FPS
     
-    def update_menu_animations(self, dt):
-        """Actualizar animaciones del menú principal"""
-        self.menu_animation_time += dt
-        
-        # Efecto sutil de "breathing" para el título
-        if hasattr(self.ids, 'title_label'):
-            pulse = 1.0 + 0.02 * math.sin(self.menu_animation_time * 1.5)
-            # La animación del título se maneja visualmente
-        
-        # Parpadeo sutil del botón destacado
-        if hasattr(self.ids, 'start_button'):
-            glow = 0.8 + 0.2 * math.sin(self.menu_animation_time * 2.5)
-            # El glow se controla a nivel de canvas, aquí registramos el valor
-            self.button_glow_intensity = glow
+    def start_new_game(self):
+        """Iniciar nueva aventura"""
+        print("🎮 Iniciando nueva aventura...")
+        # Cambiar a pantalla de juego
+        app = App.get_running_app()
+        app.switch_to_game()
     
-    def animate_menu_entrance(self, dt):
-        """Animar la entrada del menú principal"""
-        # Animación de fade-in para el título
-        if hasattr(self.ids, 'title_label'):
-            self.ids.title_label.opacity = 0
-            anim_title = Animation(opacity=1, duration=1.0)
-            anim_title.start(self.ids.title_label)
-        
-        # Animación staggered para los botones
-        def animate_buttons(dt):
-            buttons = ['start_button', 'config_button', 'exit_button']
-            for i, button_id in enumerate(buttons):
-                if hasattr(self.ids, button_id):
-                    button = getattr(self.ids, button_id)
-                    button.opacity = 0
-                    # Retraso progresivo para cada botón
-                    anim = Animation(opacity=1, duration=0.6)
-                    Clock.schedule_once(lambda dt, btn=button: anim.start(btn), i * 0.2)
-        
-        Clock.schedule_once(animate_buttons, 0.5)
-        
-        # Animación para el cuadro de descripción
-        if hasattr(self.ids, 'subtitle_label'):
-            self.ids.subtitle_label.opacity = 0
-            def animate_subtitle(dt):
-                anim = Animation(opacity=1, duration=0.8)
-                anim.start(self.ids.subtitle_label)
-            Clock.schedule_once(animate_subtitle, 1.0)
+    def open_config(self):
+        """Abrir configuración"""
+        print("⚙️ Configuración (en desarrollo)")
+        # Aquí se implementará la pantalla de configuración
+        app = App.get_running_app()
+        if hasattr(app.audio_manager, 'music_enabled'):
+            current_state = "ON" if app.audio_manager.music_enabled else "OFF"
+            volume_percent = int(app.audio_manager.music_volume * 100)
+            print(f"🎵 Música: {current_state} (Volumen: {volume_percent}%)")
+            
+            # Toggle música para demo
+            app.audio_manager.toggle_music()
+            new_state = "ON" if app.audio_manager.music_enabled else "OFF"
+            print(f"🎵 Música cambiada a: {new_state}")
     
+    def exit_game(self):
+        """Salir del juego"""
+        print("👋 Saliendo del juego...")
+        app = App.get_running_app()
+        app.stop()
+    
+    def update_animations(self, dt):
+        """Actualizar animaciones sutiles"""
+        # Breathing animation para el título
+        if hasattr(self, 'ids') and hasattr(self.ids, 'title_label'):
+            self.breathing_direction *= -1 if random.random() < 0.01 else 1
+            
+        # Efecto de fade sutil
+        self.fade_alpha += (random.random() - 0.5) * 0.02
+        self.fade_alpha = max(0.8, min(1.0, self.fade_alpha))
+        
+        # Glow del botón principal
+        self.glow_intensity += (random.random() - 0.5) * 0.05
+        self.glow_intensity = max(0.3, min(0.8, self.glow_intensity))
+
     def apply_pixel_font_if_available(self, dt=None):
-        """Aplicar fuente pixelada al menú principal"""
+        """Aplicar fuente pixelada si está disponible"""
+        # Priorizar pixel_font.ttf por defecto
         font_paths = [
-            'assets/fonts/PressStart2P-Regular.ttf',
-            'assets/fonts/pixel_font.ttf'
+            "assets/fonts/pixel_font.ttf",      # Determination Mono (prioridad)
+            "assets/fonts/PressStart2P-Regular.ttf"  # Backup
         ]
         
-        font_applied = False
-        for pixel_font_path in font_paths:
-            if os.path.exists(pixel_font_path):
-                print(f"✅ Aplicando fuente pixelada al menú: {pixel_font_path}")
+        for font_path in font_paths:
+            if os.path.exists(font_path):
+                print(f"✅ Aplicando fuente pixelada al menú: {font_path}")
                 
-                # Aplicar a elementos del menú
-                if hasattr(self.ids, 'title_label'):
-                    self.ids.title_label.font_name = pixel_font_path
+                # Aplicar a todos los labels del menú
+                if hasattr(self, 'ids'):
+                    if hasattr(self.ids, 'title_label'):
+                        self.ids.title_label.font_name = font_path
+                    if hasattr(self.ids, 'subtitle_label'):
+                        self.ids.subtitle_label.font_name = font_path
+                    if hasattr(self.ids, 'start_button'):
+                        self.ids.start_button.font_name = font_path
+                    if hasattr(self.ids, 'config_button'):
+                        self.ids.config_button.font_name = font_path
+                    if hasattr(self.ids, 'exit_button'):
+                        self.ids.exit_button.font_name = font_path
                 
-                if hasattr(self.ids, 'subtitle_label'):
-                    self.ids.subtitle_label.font_name = pixel_font_path
-                
-                if hasattr(self.ids, 'start_button'):
-                    self.ids.start_button.font_name = pixel_font_path
-                
-                if hasattr(self.ids, 'config_button'):
-                    self.ids.config_button.font_name = pixel_font_path
-                    
-                if hasattr(self.ids, 'exit_button'):
-                    self.ids.exit_button.font_name = pixel_font_path
-                
-                font_applied = True
-                break
+                self.current_font = font_path
+                return True
         
-        if not font_applied:
-            print(f"📝 Menú usando fuente por defecto")
+        print("📝 Usando fuente por defecto (fuente pixelada no encontrada)")
+        return False
 
 
-class ALifeIsARandomJourneyApp(App):
-    """Aplicación principal de A Life Is A Random Journey"""
+class LifeJourneyApp(App):
+    """Aplicación principal optimizada para APK móvil"""
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.current_screen = 'menu'  # Empezar en menú principal
-        self.audio_manager = AudioManager()  # Gestor de audio
-    
+        self.audio_manager = AudioManager()
+        self.current_screen = "menu"  # Iniciar en menú
+        
     def build(self):
-        """Construir la interfaz de usuario"""
-        self.title = 'A Life Is A Random Journey'
-        self.icon = 'assets/images/icon.png'  # Se cargará cuando exista
-        
-        # Cargar archivos .kv
-        try:
-            Builder.load_file('ui/main_menu.kv')
-            print("✅ Archivo de menú principal cargado")
-        except Exception as e:
-            print(f"⚠️ Error cargando menú principal: {e}")
-        
-        try:
-            Builder.load_file('ui/game_screen.kv')
-            print("✅ Archivo de pantalla de juego cargado")
-        except Exception as e:
-            print(f"⚠️ Error cargando pantalla de juego: {e}")
-        
-        # Cargar música de fondo
-        self.setup_audio()
-        
-        # Crear y mostrar el menú principal
-        main_menu = MainMenuScreen()
-        return main_menu
-    
-    def setup_audio(self):
-        """Configurar sistema de audio"""
-        # Cargar música de fondo del menú
-        menu_music_path = 'assets/audio/menu_music.mp3'
-        if self.audio_manager.load_background_music(menu_music_path):
-            print("🎵 Sistema de audio configurado")
-        else:
-            print("📝 Audio en modo silencioso (música no disponible)")
-    
-    def start_game(self):
-        """Iniciar el juego desde el menú principal con animación de transición"""
-        print("🎮 Iniciando nueva aventura...")
-        
-        # Reproducir efecto de sonido de inicio (si existe)
-        self.audio_manager.play_sfx('assets/audio/start_game.wav')
-        
-        # Animación de fade out del menú
-        fade_out = Animation(opacity=0, duration=0.5)
-        
-        def switch_to_game(animation, widget):
-            # Cambiar a pantalla de juego
-            game_screen = GameScreen()
-            self.load_example_scene(game_screen)
-            self.root.clear_widgets()
-            self.root.add_widget(game_screen)
-            
-            # Fade in de la nueva pantalla
-            game_screen.opacity = 0
-            fade_in = Animation(opacity=1, duration=0.5)
-            fade_in.start(game_screen)
-            
-            self.current_screen = 'game'
-            
-            # Cambiar música (aquí podrías cargar música de juego diferente)
-            # self.audio_manager.stop_background_music()
-        
-        fade_out.bind(on_complete=switch_to_game)
-        fade_out.start(self.root)
-    
-    def show_config(self):
-        """Mostrar pantalla de configuración"""
-        print("⚙️ Configuración (en desarrollo)")
-        
-        # Reproducir sonido de menú
-        self.audio_manager.play_sfx('assets/audio/menu_select.wav')
-        
-        # Por ahora solo mostrar controles de audio
-        current_volume = int(self.audio_manager.music_volume * 100)
-        music_status = "ON" if self.audio_manager.music_enabled else "OFF"
-        print(f"🎵 Música: {music_status} (Volumen: {current_volume}%)")
-        
-        # Toggle música para demostración
-        new_status = self.audio_manager.toggle_music()
-        print(f"🎵 Música cambiada a: {'ON' if new_status else 'OFF'}")
-    
-    def exit_game(self):
-        """Salir del juego con animación"""
-        print("👋 Saliendo del juego...")
-        
-        # Detener música
-        self.audio_manager.stop_background_music()
-        
-        # Reproducir sonido de salida
-        self.audio_manager.play_sfx('assets/audio/exit_game.wav')
-        
-        # Pequeña animación antes de cerrar
-        fade_out = Animation(opacity=0, duration=0.3)
-        fade_out.bind(on_complete=lambda anim, widget: self.stop())
-        fade_out.start(self.root)
-    
-    def load_example_scene(self, game_screen):
-        """Cargar escena de ejemplo para demostrar la interfaz"""
-        
-        # Verificar si la imagen existe
-        scene_image = 'assets/images/placeholder_scene.png'
-        if not os.path.exists(scene_image):
-            print(f"⚠️ Imagen no encontrada: {scene_image}")
-            scene_image = None
-        
-        # Texto narrativo de ejemplo
-        narrative_text = (
-            "* Naciste en una aldea humilde, rodeado de hambre y enfermedades.\n\n"
-            "* El aire era pesado, la esperanza escasa.\n\n"
-            "* Las casas de adobe se desmoronan lentamente, como los sueños de sus habitantes.\n\n"
-            "* Tu familia te mira con ojos cansados. Tu destino está por decidirse.\n\n"
-            "* ¿Qué harás con la vida que te ha tocado?"
-        )
-        
-        # Opciones de ejemplo
-        options = [
-            "Intentar trabajar desde joven para ayudar a la familia",
-            "Buscar educación a toda costa, sin importar el sacrificio"
-        ]
-        
-        # Cargar en la interfaz con un pequeño retraso para que se inicialice
-        def delayed_setup(dt):
-            game_screen.load_scene_data(scene_image, narrative_text, options)
-            game_screen.apply_pixel_font_if_available()
-        
-        Clock.schedule_once(delayed_setup, 0.5)
-    
-    def on_option_selected(self, option_number, option_text):
-        """Manejador cuando se selecciona una opción con animación"""
-        print(f"🎯 Opción seleccionada: {option_number}")
-        print(f"📝 Texto: {option_text}")
-        
-        # Reproducir sonido de selección
-        self.audio_manager.play_sfx('assets/audio/option_select.wav')
-        
-        # Animación del botón presionado
-        if hasattr(self.root, 'ids'):
-            button_id = f'option_{option_number}'
-            if hasattr(self.root.ids, button_id):
-                button = getattr(self.root.ids, button_id)
-                # Pequeña animación de "click"
-                anim = Animation(opacity=0.5, duration=0.1) + Animation(opacity=1, duration=0.1)
-                anim.start(button)
-        
-        # Aquí se conectaría con la lógica del juego
-        # Por ahora, solo mostrar feedback con efecto typewriter
-        if hasattr(self.root, 'ids') and hasattr(self.root.ids, 'narrative_text'):
-            feedback_text = (
-                f"* Has elegido: {option_text.replace('*', '').strip()}\n\n"
-                "* Esta decisión marcará el rumbo de tu vida...\n\n"
-                "* [Sistema de juego en desarrollo]\n\n"
-                "* Reinicia la aplicación para volver al inicio."
-            )
-            
-            # Usar efecto typewriter para el feedback
-            if hasattr(self.root, 'start_typewriter_effect'):
-                self.root.start_typewriter_effect(feedback_text)
-            else:
-                self.root.ids.narrative_text.text = feedback_text
-    
-    def on_start(self):
-        """Llamado cuando la aplicación inicia"""
+        """Construir la aplicación principal"""
         print("🎮 A Life Is A Random Journey - Aplicación iniciada")
         print("🎨 Interfaz: Estilo Negro + Animaciones Undertale/Deltarune/Celeste")
         print("🎵 Audio: Sistema de música y efectos implementado")
-        print("📱 Modo: Desarrollo local" if platform.system() != 'Android' else "📱 Modo: Android")
+        print("📱 Modo: Desarrollo local")
         
         # Verificar recursos
-        self.check_resources()
+        self.verify_resources()
         
-        # Iniciar música de fondo del menú
-        Clock.schedule_once(self.start_menu_music, 1.0)
+        # Crear pantalla principal (menú)
+        self.main_menu = MainMenuScreen()
+        
+        # Cargar pantalla de juego
+        try:
+            Builder.load_file('ui/game_screen.kv')
+            self.game_screen = GameScreen()
+        except Exception as e:
+            print(f"⚠️ Error cargando pantalla de juego: {e}")
+            self.game_screen = None
+        
+        # Configurar audio
+        self.audio_manager.load_menu_music()
+        
+        # Iniciar música de fondo
+        if self.audio_manager.background_music:
+            self.audio_manager.play_background_music()
+        
+        # Retornar pantalla inicial (menú)
+        return self.main_menu
     
-    def start_menu_music(self, dt):
-        """Iniciar música del menú con retraso"""
-        self.audio_manager.play_background_music()
+    def switch_to_game(self):
+        """Cambiar a la pantalla de juego"""
+        if self.game_screen:
+            print("🎮 Cambiando a pantalla de juego...")
+            self.current_screen = "game"
+            # Cambiar el widget raíz
+            self.root_window.remove_widget(self.root)
+            self.root = self.game_screen
+            self.root_window.add_widget(self.root)
+            # Aplicar fuente al juego también
+            if hasattr(self.game_screen, 'apply_pixel_font_if_available'):
+                self.game_screen.apply_pixel_font_if_available()
+        else:
+            print("❌ Pantalla de juego no disponible")
     
-    def check_resources(self):
-        """Verificar que los recursos necesarios existen"""
-        resources_to_check = [
-            ('assets/images/placeholder_scene.png', 'Imagen de escena'),
-            ('assets/fonts/PressStart2P-Regular.ttf', 'Fuente Press Start 2P'),
-            ('assets/fonts/pixel_font.ttf', 'Fuente pixelada alternativa'),
-            ('assets/audio/menu_music.mp3', 'Música del menú'),
-            ('ui/main_menu.kv', 'Archivo de menú principal'),
-            ('ui/game_screen.kv', 'Archivo de pantalla de juego')
+    def switch_to_menu(self):
+        """Cambiar de vuelta al menú principal"""
+        if self.main_menu:
+            print("📋 Regresando al menú principal...")
+            self.current_screen = "menu"
+            self.root_window.remove_widget(self.root)
+            self.root = self.main_menu
+            self.root_window.add_widget(self.root)
+    
+    def verify_resources(self):
+        """Verificar que todos los recursos están disponibles"""
+        print("\n📋 Verificando recursos:")
+        
+        # Verificar imagen
+        image_path = "assets/images/placeholder_scene.png"
+        if os.path.exists(image_path):
+            print(f"✅ Imagen de escena: {image_path}")
+        else:
+            print(f"⚠️ Imagen faltante: {image_path}")
+        
+        # Verificar fuentes (priorizar pixel_font.ttf)
+        fonts = [
+            ("Determination Mono (principal)", "assets/fonts/pixel_font.ttf"),
+            ("Press Start 2P (backup)", "assets/fonts/PressStart2P-Regular.ttf")
         ]
         
-        print("\n📋 Verificando recursos:")
-        for resource_path, description in resources_to_check:
-            if os.path.exists(resource_path):
-                print(f"✅ {description}: {resource_path}")
+        for desc, font_path in fonts:
+            if os.path.exists(font_path):
+                print(f"✅ {desc}: {font_path}")
             else:
-                print(f"⚠️ {description}: {resource_path} - NO ENCONTRADO")
-        print()
-    
-    def on_pause(self):
-        """Llamado cuando la aplicación se pausa (Android)"""
-        # Pausar música en segundo plano
-        if self.audio_manager.background_music:
-            self.audio_manager.background_music.stop()
-        return True
-    
-    def on_resume(self):
-        """Llamado cuando la aplicación se reanuda (Android)"""
-        # Reanudar música si estaba activa
-        if self.current_screen == 'menu':
-            self.audio_manager.play_background_music()
+                print(f"⚠️ {desc}: {font_path} - NO ENCONTRADO")
+        
+        # Verificar música
+        music_path = "assets/audio/menu_music.mp3"
+        if os.path.exists(music_path):
+            print(f"✅ Música del menú: {music_path}")
+        else:
+            print(f"⚠️ Música faltante: {music_path}")
+        
+        # Verificar archivos UI
+        ui_files = [
+            ("ui/main_menu.kv", "Archivo de menú principal"),
+            ("ui/game_screen.kv", "Archivo de pantalla de juego")
+        ]
+        
+        for file_path, desc in ui_files:
+            if os.path.exists(file_path):
+                print(f"✅ {desc}: {file_path}")
+            else:
+                print(f"⚠️ {desc}: {file_path} - NO ENCONTRADO")
+        
+        print()  # Línea en blanco para separar
 
 
 def main():
@@ -544,7 +432,7 @@ def main():
     print("✨ Efectos: Typewriter, Fade, Breathing, Glow")
     
     try:
-        app = ALifeIsARandomJourneyApp()
+        app = LifeJourneyApp()
         app.run()
     except Exception as e:
         print(f"❌ Error al iniciar la aplicación: {e}")

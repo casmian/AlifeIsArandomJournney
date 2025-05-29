@@ -1,0 +1,79 @@
+# 🎮 A Life Is A Random Journey - .gitignore
+
+## Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+## Virtual Environment
+venv/
+env/
+ENV/
+
+## IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+## OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+## Kivy
+*.pyc
+.buildozer/
+bin/
+
+## Android Build
+.gradle/
+local.properties
+
+## Logs
+*.log
+logs/
+
+## Temporary files
+*.tmp
+*.temp
+temp/
+
+## Editor backups
+*~
+*.bak
+*.orig
+
+## Cursor IDE (mantener configuración local)
+.cursor/
+
+## Archivos de desarrollo temporal
+*_temp.py
+*_test.py
+download_*.py
+
+## Mantener estructura pero ignorar contenido vacío
+!**/.gitkeep 

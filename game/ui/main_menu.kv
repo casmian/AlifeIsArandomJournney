@@ -1,0 +1,233 @@
+# Main Menu Layout - A Life Is A Random Journey
+# Estilo negro con animaciones Undertale/Deltarune/Celeste
+
+<MainMenuScreen>:
+    orientation: 'vertical'
+    spacing: 0
+    padding: 0
+    canvas.before:
+        # Fondo negro profundo como Undertale/Celeste
+        Color:
+            rgba: 0, 0, 0, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    
+    # Espaciador superior
+    Widget:
+        size_hint: 1, 0.15
+    
+    # Título principal con efecto glow
+    BoxLayout:
+        size_hint: 1, 0.15
+        orientation: 'vertical'
+        
+        Label:
+            id: title_label
+            text: '🏠 A LIFE\'S\nRANDOM JOURNEY'
+            font_size: '22sp'
+            color: 1, 1, 1, 1  # Blanco puro sobre negro
+            halign: 'center'
+            valign: 'middle'
+            text_size: self.size
+            canvas.before:
+                # Efecto de resplandor/glow sutil
+                Color:
+                    rgba: 1, 1, 0.8, 0.3
+                Rectangle:
+                    pos: self.x - 2, self.y - 2
+                    size: self.width + 4, self.height + 4
+    
+    # Espaciador
+    Widget:
+        size_hint: 1, 0.08
+    
+    # Cuadro de descripción estilo retro negro
+    BoxLayout:
+        size_hint: 1, 0.15
+        padding: [30, 10, 30, 10]
+        
+        Widget:
+            canvas.before:
+                # Borde exterior blanco brillante
+                Color:
+                    rgba: 1, 1, 1, 1
+                Rectangle:
+                    pos: self.x + 5, self.y + 5
+                    size: self.width - 10, self.height - 10
+                # Borde interior negro
+                Color:
+                    rgba: 0, 0, 0, 1
+                Rectangle:
+                    pos: self.x + 8, self.y + 8
+                    size: self.width - 16, self.height - 16
+                # Fondo negro con toque azul muy sutil
+                Color:
+                    rgba: 0.02, 0.02, 0.08, 1
+                Rectangle:
+                    pos: self.x + 12, self.y + 12
+                    size: self.width - 24, self.height - 24
+            
+            Label:
+                id: subtitle_label
+                text: '★ A LIFE\'S RANDOM JOURNEY ★\nRPG de Aventuras Épicas'
+                font_size: '12sp'
+                color: 0.9, 0.9, 1, 1  # Blanco azulado suave
+                halign: 'center'
+                valign: 'middle'
+                text_size: self.width - 40, self.height - 20
+                pos: self.parent.x + 20, self.parent.y + 10
+                size: self.parent.width - 40, self.parent.height - 20
+    
+    # Espaciador
+    Widget:
+        size_hint: 1, 0.08
+    
+    # Menú de opciones con animaciones
+    BoxLayout:
+        size_hint: 1, 0.39
+        orientation: 'vertical'
+        padding: [30, 0, 30, 0]
+        spacing: 10
+        
+        # Widget contenedor del menú con borde
+        Widget:
+            canvas.before:
+                # Borde exterior blanco brillante
+                Color:
+                    rgba: 1, 1, 1, 1
+                Rectangle:
+                    pos: self.x + 5, self.y + 5
+                    size: self.width - 10, self.height - 10
+                # Borde interior negro
+                Color:
+                    rgba: 0, 0, 0, 1
+                Rectangle:
+                    pos: self.x + 8, self.y + 8
+                    size: self.width - 16, self.height - 16
+                # Fondo negro del menú
+                Color:
+                    rgba: 0, 0, 0, 1
+                Rectangle:
+                    pos: self.x + 12, self.y + 12
+                    size: self.width - 24, self.height - 24
+            
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: 15
+                padding: [25, 20, 25, 20]
+                pos: self.parent.x + 12, self.parent.y + 12
+                size: self.parent.width - 24, self.parent.height - 24
+                
+                # Botón Comenzar Aventura (destacado con animación)
+                Widget:
+                    id: start_button_container
+                    size_hint: 1, 1
+                    canvas.before:
+                        # Borde animado que pulsará (se controlará desde Python)
+                        Color:
+                            rgba: 1, 1, 0.3, 1  # Amarillo brillante
+                        Rectangle:
+                            pos: self.x + 2, self.y + 2
+                            size: self.width - 4, self.height - 4
+                        Color:
+                            rgba: 0, 0, 0, 1
+                        Rectangle:
+                            pos: self.x + 4, self.y + 4
+                            size: self.width - 8, self.height - 8
+                        # Fondo con glow sutil
+                        Color:
+                            rgba: 0.1, 0.1, 0.05, 1
+                        Rectangle:
+                            pos: self.x + 6, self.y + 6
+                            size: self.width - 12, self.height - 12
+                    
+                    Button:
+                        id: start_button
+                        text: '♥ COMENZAR AVENTURA'
+                        font_size: '14sp'
+                        color: 1, 1, 0.6, 1  # Amarillo dorado brillante
+                        background_color: 0, 0, 0, 0
+                        pos: self.parent.x + 6, self.parent.y + 6
+                        size: self.parent.width - 12, self.parent.height - 12
+                        halign: 'left'
+                        text_size: self.size
+                        padding: [20, 0]
+                        on_press: app.start_game()
+                
+                # Botón Configuración
+                Widget:
+                    id: config_button_container
+                    size_hint: 1, 1
+                    canvas.before:
+                        Color:
+                            rgba: 0.7, 0.7, 0.7, 1  # Gris claro
+                        Rectangle:
+                            pos: self.x + 2, self.y + 2
+                            size: self.width - 4, self.height - 4
+                        Color:
+                            rgba: 0, 0, 0, 1
+                        Rectangle:
+                            pos: self.x + 4, self.y + 4
+                            size: self.width - 8, self.height - 8
+                        Color:
+                            rgba: 0.05, 0.05, 0.05, 1
+                        Rectangle:
+                            pos: self.x + 6, self.y + 6
+                            size: self.width - 12, self.height - 12
+                    
+                    Button:
+                        id: config_button
+                        text: 'CONFIGURACIÓN'
+                        font_size: '14sp'
+                        color: 0.9, 0.9, 0.9, 1  # Gris claro
+                        background_color: 0, 0, 0, 0
+                        pos: self.parent.x + 6, self.parent.y + 6
+                        size: self.parent.width - 12, self.parent.height - 12
+                        halign: 'left'
+                        text_size: self.size
+                        padding: [20, 0]
+                        on_press: app.show_config()
+                
+                # Botón Salir del Juego
+                Widget:
+                    id: exit_button_container
+                    size_hint: 1, 1
+                    canvas.before:
+                        Color:
+                            rgba: 0.7, 0.7, 0.7, 1
+                        Rectangle:
+                            pos: self.x + 2, self.y + 2
+                            size: self.width - 4, self.height - 4
+                        Color:
+                            rgba: 0, 0, 0, 1
+                        Rectangle:
+                            pos: self.x + 4, self.y + 4
+                            size: self.width - 8, self.height - 8
+                        Color:
+                            rgba: 0.05, 0.05, 0.05, 1
+                        Rectangle:
+                            pos: self.x + 6, self.y + 6
+                            size: self.width - 12, self.height - 12
+                    
+                    Button:
+                        id: exit_button
+                        text: 'SALIR DEL JUEGO'
+                        font_size: '14sp'
+                        color: 0.9, 0.9, 0.9, 1
+                        background_color: 0, 0, 0, 0
+                        pos: self.parent.x + 6, self.parent.y + 6
+                        size: self.parent.width - 12, self.parent.height - 12
+                        halign: 'left'
+                        text_size: self.size
+                        padding: [20, 0]
+                        on_press: app.exit_game()
+
+# Reglas para efectos hover en botones del menú
+<Button>:
+    canvas.after:
+        Color:
+            rgba: (1, 1, 1, 0.2) if self.state == 'down' else (0, 0, 0, 0)
+        Rectangle:
+            pos: self.pos
+            size: self.size 

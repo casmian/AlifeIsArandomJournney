@@ -1,0 +1,9 @@
+# Dependencias principales para A Life Is A Random Journey
+kivy>=2.1.0
+kivymd>=1.1.1
+sqlalchemy>=1.4.0
+numpy>=1.21.0
+plyer>=2.1.0
+
+# Dependencias adicionales para desarrollo
+pytest>=7.0.0 

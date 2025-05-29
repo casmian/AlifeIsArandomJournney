@@ -1,0 +1,27 @@
+# ATRIBUCIONES DE MÚSICA - A Life Is A Random Journey
+
+## 🎵 Música del Menú Principal
+**Archivo:** menu_music.mp3  
+**Estado:** PLACEHOLDER - Reemplazar con música real  
+**Recomendaciones:**
+- Buscar en OpenGameArt.org
+- Usar licencia CC0 o CC-BY
+- Estilo: Ambient, Piano, Chiptune melancólico
+- Duración: 2-4 minutos (loop)
+
+## 📝 Sitios recomendados para música libre:
+- OpenGameArt.org (CC0, CC-BY)
+- Freesound.org (CC0, CC-BY)
+- Zapsplat.com (Registro gratuito)
+- YouTube Audio Library
+- Pixabay Music
+
+## 🎮 Estilo objetivo:
+Música que evoque el sentimiento de Undertale/Deltarune/Celeste:
+- Melancólica pero esperanzadora
+- Piano suave o sintetizadores vintage
+- Ambiente nostálgico
+- Tempo lento a medio
+
+---
+Generado automáticamente por A Life Is A Random Journey

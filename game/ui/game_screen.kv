@@ -1,0 +1,179 @@
+# Game Screen Layout - A Life Is A Random Journey
+# Estilo negro con animaciones Undertale/Deltarune/Celeste
+
+<GameScreen>:
+    orientation: 'vertical'
+    spacing: 0
+    padding: 0
+    canvas.before:
+        # Fondo negro profundo
+        Color:
+            rgba: 0, 0, 0, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    
+    # Área Superior - Imagen de la Escena (40% de la pantalla)
+    BoxLayout:
+        size_hint: 1, 0.4
+        padding: [10, 10, 10, 5]
+        
+        # Widget de imagen con borde retro
+        Widget:
+            id: image_container
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1  # Borde blanco exterior
+                Rectangle:
+                    pos: self.x + 5, self.y + 5
+                    size: self.width - 10, self.height - 10
+                Color:
+                    rgba: 0, 0, 0, 1  # Borde negro interior
+                Rectangle:
+                    pos: self.x + 8, self.y + 8
+                    size: self.width - 16, self.height - 16
+                Color:
+                    rgba: 0.05, 0.05, 0.05, 1  # Fondo gris muy oscuro
+                Rectangle:
+                    pos: self.x + 12, self.y + 12
+                    size: self.width - 24, self.height - 24
+            
+            Image:
+                id: scene_image
+                source: 'assets/images/placeholder_scene.png'
+                allow_stretch: True
+                keep_ratio: False
+                pos: root.ids.scene_image.parent.x + 12, root.ids.scene_image.parent.y + 12
+                size: root.ids.scene_image.parent.width - 24, root.ids.scene_image.parent.height - 24
+
+    # Área Central - Texto Narrativo (40% de la pantalla)
+    BoxLayout:
+        size_hint: 1, 0.4
+        padding: [10, 5, 10, 5]
+        
+        # Cuadro de texto narrativo con estilo retro negro
+        Widget:
+            id: text_container
+            canvas.before:
+                # Borde exterior blanco brillante
+                Color:
+                    rgba: 1, 1, 1, 1
+                Rectangle:
+                    pos: self.x + 2, self.y + 2
+                    size: self.width - 4, self.height - 4
+                # Borde interior negro
+                Color:
+                    rgba: 0, 0, 0, 1
+                Rectangle:
+                    pos: self.x + 6, self.y + 6
+                    size: self.width - 12, self.height - 12
+                # Fondo negro del texto
+                Color:
+                    rgba: 0, 0, 0, 1
+                Rectangle:
+                    pos: self.x + 10, self.y + 10
+                    size: self.width - 20, self.height - 20
+            
+            Label:
+                id: narrative_text
+                text: '* Naciste en una aldea humilde, rodeado de hambre y enfermedades.\n\n* El aire era pesado, la esperanza escasa.\n\n* ¿Qué harás con la vida que te ha tocado?'
+                font_size: '16sp'
+                color: 1, 1, 1, 1  # Texto blanco brillante
+                text_size: self.width - 40, self.height - 40
+                halign: 'left'
+                valign: 'top'
+                pos: self.parent.x + 20, self.parent.y + 20
+                size: self.parent.width - 40, self.parent.height - 40
+
+    # Área Inferior - Opciones de Acción (20% de la pantalla)
+    BoxLayout:
+        size_hint: 1, 0.2
+        orientation: 'vertical'
+        padding: [10, 5, 10, 10]
+        spacing: 5
+        
+        # Contenedor para botones de opciones
+        BoxLayout:
+            id: options_container
+            orientation: 'vertical'
+            spacing: 8
+            
+            # Botón de opción 1 (destacado)
+            Widget:
+                id: option1_container
+                size_hint: 1, 1
+                canvas.before:
+                    # Borde exterior amarillo brillante
+                    Color:
+                        rgba: 1, 1, 0.4, 1
+                    Rectangle:
+                        pos: self.x + 2, self.y + 2
+                        size: self.width - 4, self.height - 4
+                    # Borde interior negro
+                    Color:
+                        rgba: 0, 0, 0, 1
+                    Rectangle:
+                        pos: self.x + 4, self.y + 4
+                        size: self.width - 8, self.height - 8
+                    # Fondo negro con glow
+                    Color:
+                        rgba: 0.1, 0.1, 0.02, 1
+                    Rectangle:
+                        pos: self.x + 6, self.y + 6
+                        size: self.width - 12, self.height - 12
+                
+                Button:
+                    id: option_1
+                    text: '* Intentar trabajar desde joven'
+                    font_size: '14sp'
+                    color: 1, 1, 0.7, 1  # Amarillo dorado
+                    background_color: 0, 0, 0, 0  # Transparente (usa el canvas del padre)
+                    pos: self.parent.x + 6, self.parent.y + 6
+                    size: self.parent.width - 12, self.parent.height - 12
+                    halign: 'left'
+                    text_size: self.size
+                    padding: [15, 0]
+                    on_press: app.on_option_selected(1, self.text)
+            
+            # Botón de opción 2
+            Widget:
+                id: option2_container
+                size_hint: 1, 1
+                canvas.before:
+                    Color:
+                        rgba: 0.7, 0.7, 0.7, 1  # Gris claro
+                    Rectangle:
+                        pos: self.x + 2, self.y + 2
+                        size: self.width - 4, self.height - 4
+                    Color:
+                        rgba: 0, 0, 0, 1
+                    Rectangle:
+                        pos: self.x + 4, self.y + 4
+                        size: self.width - 8, self.height - 8
+                    Color:
+                        rgba: 0.05, 0.05, 0.05, 1
+                    Rectangle:
+                        pos: self.x + 6, self.y + 6
+                        size: self.width - 12, self.height - 12
+                
+                Button:
+                    id: option_2
+                    text: '* Buscar educación a toda costa'
+                    font_size: '14sp'
+                    color: 0.9, 0.9, 0.9, 1  # Gris claro
+                    background_color: 0, 0, 0, 0
+                    pos: self.parent.x + 6, self.parent.y + 6
+                    size: self.parent.width - 12, self.parent.height - 12
+                    halign: 'left'
+                    text_size: self.size
+                    padding: [15, 0]
+                    on_press: app.on_option_selected(2, self.text)
+
+# Regla para highlighting cuando se presiona un botón
+<Button>:
+    canvas.after:
+        Color:
+            rgba: (1, 1, 1, 0.3) if self.state == 'down' else (0, 0, 0, 0)
+        Rectangle:
+            pos: self.pos
+            size: self.size 

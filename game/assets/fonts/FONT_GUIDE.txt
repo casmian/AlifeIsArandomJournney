@@ -1,0 +1,50 @@
+# GUÍA DE FUENTES PIXELADAS - A Life Is A Random Journey
+
+## 🎨 Fuentes Actuales
+
+### ✅ Press Start 2P
+**Archivo:** PressStart2P-Regular.ttf  
+**Estado:** INSTALADA Y FUNCIONANDO  
+**Licencia:** SIL Open Font License  
+**Uso:** Menú principal, títulos, botones  
+
+### 📄 Pixel Font (Placeholder)
+**Archivo:** pixel_font.ttf  
+**Estado:** PLACEHOLDER - Reemplazar con fuente real  
+**Uso:** Texto alternativo, variaciones  
+
+## 📥 Fuentes Recomendadas para Descargar
+
+### 1. Pixeled (DaFont)
+**URL:** https://www.dafont.com/pixeled.font  
+**Licencia:** 100% Free  
+**Tamaño:** 10px  
+**Descripción:** Fuente pixelada limpia y legible  
+
+### 2. Perfect DOS VGA 437
+**URL:** https://www.dafont.com/perfect-dos-vga-437.font  
+**Licencia:** 100% Free  
+**Descripción:** Clásica fuente VGA de computadoras retro  
+
+### 3. Determination Mono
+**Búsqueda:** "Determination Mono Undertale font"  
+**Descripción:** Fuente oficial de Undertale (muy similar al juego)  
+
+### 4. Dogica
+**URL:** https://www.dafont.com/dogica.font  
+**Licencia:** Public Domain / GPL / OFL  
+**Descripción:** Fuente pixelada moderna, muy versátil  
+
+## 🎮 Cómo Usar:
+1. Descarga la fuente .ttf
+2. Renómbrala a "pixel_font.ttf" 
+3. Reemplaza el archivo placeholder en assets/fonts/
+4. ¡La aplicación la detectará automáticamente!
+
+## 🔄 Alternativas si tienes problemas:
+- Mantén Press Start 2P (ya funciona perfectamente)
+- Busca "free pixel fonts" en Google Fonts
+- Revisa 1001fonts.com sección pixel/bitmap
+
+---
+Generado automáticamente por A Life Is A Random Journey

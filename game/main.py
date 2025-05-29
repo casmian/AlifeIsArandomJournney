@@ -53,6 +53,11 @@ class AudioManager:
             print(f"📝 Archivo de música no encontrado: {music_file}")
         return False
     
+    def load_menu_music(self):
+        """Cargar música específica del menú"""
+        menu_music_path = "assets/audio/menu_music.mp3"
+        return self.load_background_music(menu_music_path)
+    
     def play_background_music(self):
         """Reproducir música de fondo"""
         if self.background_music and self.music_enabled:
@@ -332,6 +337,13 @@ class LifeJourneyApp(App):
         # Verificar recursos
         self.verify_resources()
         
+        # Cargar archivos de interfaz
+        try:
+            Builder.load_file('ui/main_menu.kv')
+            print("✅ Interfaz del menú principal cargada")
+        except Exception as e:
+            print(f"⚠️ Error cargando menú principal: {e}")
+        
         # Crear pantalla principal (menú)
         self.main_menu = MainMenuScreen()
         
@@ -339,6 +351,7 @@ class LifeJourneyApp(App):
         try:
             Builder.load_file('ui/game_screen.kv')
             self.game_screen = GameScreen()
+            print("✅ Interfaz del juego cargada")
         except Exception as e:
             print(f"⚠️ Error cargando pantalla de juego: {e}")
             self.game_screen = None
@@ -376,6 +389,23 @@ class LifeJourneyApp(App):
             self.root_window.remove_widget(self.root)
             self.root = self.main_menu
             self.root_window.add_widget(self.root)
+    
+    def on_option_selected(self, option_number, option_text):
+        """Manejar la selección de opciones en el juego"""
+        print(f"🎯 Opción seleccionada: {option_number} - {option_text}")
+        
+        # Aquí se implementará la lógica del juego
+        # Por ahora, solo registramos la selección
+        if option_number == 1:
+            print("💼 Elegiste trabajar desde joven")
+            # Aquí iría la lógica para esa opción
+        elif option_number == 2:
+            print("📚 Elegiste buscar educación")
+            # Aquí iría la lógica para esa opción
+        
+        # Placeholder: regresamos al menú por ahora
+        print("🔄 (Demo) Regresando al menú principal...")
+        self.switch_to_menu()
     
     def verify_resources(self):
         """Verificar que todos los recursos están disponibles"""

@@ -5,10 +5,194 @@ alwaysApply: false
 ---
 # 🎮 A Life Is A Random Journey - Reglas de Cursor
 
-## Contexto del Proyecto
-Este es un **RPG de texto único** desarrollado en **Python con Kivy** para Android. El juego se inspira en Undertale/Deltarune para la UI y en Dwarf Fortress para la generación de narrativa emergente.
+## 🎮 TÍTULO DEL PROYECTO
 
-## Estructura del Proyecto
+**"A Life Is A Random Journey"**
+
+> Un RPG de texto donde no eliges quién eres. Solo vives lo que te toca.
+
+---
+
+## 🧠 CONCEPTO GENERAL
+
+Este es un **RPG de texto único e inmersivo**, donde cada partida es una vida diferente, **inspirado en la simulación profunda y la generación de narrativa emergente de Dwarf Fortress**. No eliges tu nombre, género, clase social ni destino inicial. Solo recibes lo que el mundo decide darte… y decides qué hacer con ello.
+
+Es como si estuvieras viviendo una novela interactiva que cambia completamente en cada partida, con una **interfaz de usuario que evoca el estilo pixelado y nostálgico de Undertale/Deltarune**, pero ejecutándose con fluidez y adaptándose completamente a las pantallas de Android, acompañada de **audio de alta calidad** (música y efectos) para una inmersión profunda.
+
+### **Puntos Clave del Enfoque:**
+* **Generación de Vida Profunda (Dwarf Fortress-like):** El juego no solo genera tu personaje, sino también un **micro-mundo inicial y un trasfondo familiar detallado**, creando una "historia" emergente incluso antes de que el juego comience.
+* **Narrativa Dinámica y Emergente:** Construida sobre **personajes no jugadores (NPCs) complejos con historias propias que pueden cruzarse con la tuya de forma condicional**, y **arcos de historia específicos basados en la localización o trayectoria de vida del jugador**. Esto permite una rejugabilidad exponencial y una sensación de vivir una vida verdaderamente única, donde las interacciones de los sistemas generan sus propias tramas.
+* **Experiencia Offline Total:** Toda la lógica del juego y la persistencia de datos residirán de forma segura y autónoma en el propio dispositivo Android del usuario, garantizando una experiencia de juego completamente offline.
+* **Generación Procedural Ligera:** Si bien la historia principal y los arcos de localización son predefinidos, se explorará el uso de plantillas de texto y combinación de elementos (adjetivos, sustantivos, verbos aleatorios) para generar descripciones y eventos menores de forma procedural. Esto aumentará aún más la variedad y la sensación de una vida verdaderamente única, sin requerir la creación manual de cada micro-evento.
+
+---
+
+## 🌍 AMBIENTACIÓN
+
+Un mundo de fantasía realista, donde:
+* Existen magia, dragones, elfos y reinos.
+* Pero también hay pobreza, enfermedades, traiciones, accidentes y muertes sin gloria.
+* No todo tiene sentido. A veces, simplemente pasa algo y ya.
+* Las decisiones importan, pero no siempre obtienes un final feliz.
+
+---
+
+## 🧬 LO QUE HACE TU JUEGO ÚNICO
+
+Tu juego no sigue una historia lineal. Es una **experiencia personalizada y profundamente emocional**, donde la **simulación de vida y los sistemas interconectados** dan lugar a una narrativa que se *emerge* de tus acciones y el mundo generado. Cada jugador vive una vida distinta, sin las limitaciones de un personaje predefinido, y esa vida se siente orgánicamente formada por el entorno. Y eso lo hace rejugable, impredecible y auténtico.
+
+---
+
+## 📋 PLAN GENERAL DEL JUEGO
+
+### 1. **Generación de Origen Profundo (Inspirado en Dwarf Fortress)**
+* El juego genera automáticamente una **"historia de nacimiento"** detallada para tu personaje y su entorno inicial:
+    * **Tu Nombre y Género.**
+    * **Tu Lugar de Nacimiento:** Con detalles sobre la región (¿es una zona en conflicto, prospera, desolada?), su industria principal (agrícola, minera, militar) y su cultura dominante.
+    * **Tu Familia:** Generación de padres y hermanos cercanos con **rasgos de personalidad básicos, relaciones entre ellos** (rivalidad, amistad, conflicto) e incluso **una breve historia familiar** (¿eran nobles venidos a menos, una línea de guerreros, campesinos leales?).
+    * **Tu Evento Inicial (Catalizador):** Un evento aleatorio significativo que marca el inicio de tu vida y moldea los rasgos iniciales del personaje (ej: nacer durante una plaga, ser abandonado, un golpe de suerte inesperado, un ataque bandido en la aldea).
+    * **Atributos y Rasgos Ocultos:** Basados en el origen y los eventos iniciales (ej. "Traumatizado por la guerra", "Hijo de comerciantes", "Curioso por naturaleza"). Estos rasgos influirán sutilmente en las opciones de diálogo, las reacciones de los NPCs o las consecuencias de las acciones.
+
+### 2. **Vida Ramificada y Arcos de Localización**
+* Cada decisión te lleva por un camino distinto.
+* **La historia se desarrolla en "arcos" o "capítulos" basados en la ubicación y las decisiones del jugador.** Por ejemplo:
+    * Si entras en la academia, la narrativa se centra en la vida académica, los profesores, rivalidades y eventos dentro de la academia.
+    * Si terminas en el palacio, la trama gira en torno a intrigas cortesanas, reyes, nobles y misiones diplomáticas/militares dentro de ese entorno.
+    * Lo mismo para un gremio de ladrones, una granja aislada, un campamento de mercenarios, etc.
+* Puedes ser:
+    * Un héroe legendario
+    * Un villano temido
+    * Un campesino común
+    * Un rey amado o odiado
+    * Un asesino arrepentido
+    * Un bandido sin remordimientos
+    * O incluso alguien que nunca logra nada importante
+
+### 3. **Personajes No Jugadores (NPCs) Vivos y Complejos (Inspirado en Dwarf Fortress)**
+* **NPCs Fijos con Historias Emergentes:** Habrá un conjunto de NPCs con nombres y personalidades predefinidas. Sin embargo, su **historia personal, relaciones con otros NPCs (previamente generadas)** y eventos relevantes en su vida (como morir, tener hijos, cambiar de profesión) pueden generarse o revelarse dinámicamente a medida que interactúas con ellos o los eventos mundiales los afectan.
+* **Encuentros Condicionales:** Que conozcas o no a un NPC dependerá completamente del camino que tome tu vida. Un NPC puede morir sin haberte conocido si los eventos de su propia vida o de la historia general así lo dictan.
+* **Relaciones Inter-NPCs:** Las relaciones de los NPCs entre sí (enemistades, amistades, deudas, familiares) pueden influir en sus decisiones y reacciones hacia ti, creando subtramas.
+* **Tus Interacciones Afectan su Destino:** Tus acciones (o la falta de ellas) con un NPC pueden alterar su trayectoria de vida de forma significativa, e incluso llevarlos a la muerte o a la grandeza.
+
+### 4. **Fantasía Realista y Sistemas Interconectados**
+* Magia, dragones y criaturas existen...
+* Pero también hay hambre, corrupción, miedo, vejez y muerte natural.
+* **Todo puede fallar:** Inspirado en la aleatoriedad y la interconexión de sistemas de Dwarf Fortress, tu arma puede romperse en el momento crítico, tu comida puede estar podrida, tu mente puede engañarte, o un evento aparentemente menor puede desencadenar una serie de catastróficas desdichas.
+* No todo tiene sentido. A veces, simplemente pasa algo y ya.
+
+### 5. **Sistema de Tiempo y Edad**
+* Envejeces naturalmente.
+* Puedes morir joven por una decisión tonta.
+* O llegar a viejo, preguntándote si valió la pena todo lo hecho.
+
+### 6. **Diálogos con Peso Emocional y Dilemas Morales (Inspirado en Rasgos y Traumas)**
+* Tus palabras afectan relaciones. Algunas frases pueden abrir nuevas rutas, otras cerrarlas para siempre. Incluso puedes elegir no hablar… y eso también tiene consecuencias.
+* El juego presentará situaciones donde no hay una "elección buena" o "mala" clara. Las decisiones afectarán un sistema de valores internos o "salud mental/moral" oculta del personaje, influenciada por los rasgos y traumas generados en tu origen, que influirá sutilmente en futuras reacciones, opciones de diálogo o incluso desenlaces de vida a largo plazo, añadiendo capas de complejidad emocional.
+
+### 7. **Mundo Reactivo y Memoria del Juego (Inspirado en Historiales)**
+* Tus acciones tienen consecuencias permanentes.
+* Personajes recuerdan lo que hiciste (si lo presenciaron o se enteraron).
+* El mundo cambia según tus actos, aunque nadie más lo note, y estos cambios pueden afectar futuras interacciones o oportunidades.
+
+### 8. **Finales Únicos y Legado (Con Ecos de la Historia del Mundo)**
+* No hay un solo final. Hay docenas. Tu final depende de qué hiciste, cómo moriste, cómo te recordaron y si dejaste legado o fuiste olvidado.
+* **Ecos del Pasado (Generación Continuada):** Tu vida no termina con tu muerte. Dependiendo de cómo viviste y tu legado (bueno o malo), el mundo puede recordar a tu personaje. Esto podría manifestarse en futuras partidas, donde un nuevo personaje generado pueda encontrar monumentos, ruinas, historias orales o incluso NPCs descendientes de aquellos con los que interactuó tu vida anterior, con sus propias opiniones basadas en tus acciones pasadas.
+
+### 9. **Reincorporación con Memoria Parcial**
+* Si mueres, puedes "reiniciar".
+* Pero no recuerdas todo.
+* Solo sabes que has vivido antes… y que quizás esta vez puedas cambiar algo.
+
+### 10. **Sistema de Objetos Defectuosos y Eventos Impredecibles**
+* Armas que fallan.
+* Comida en mal estado.
+* Pociones que curan… o envenenan.
+* Objetos con pasado propio.
+* Eventos menores aleatorios (ej. un encuentro con un animal salvaje, una tormenta repentina, encontrar un objeto olvidado) pueden ocurrir en cualquier momento, añadiendo imprevisibilidad al viaje.
+
+---
+
+## 🧩 ¿QUÉ TIPO DE VIDAS PUEDEN OCURRIR?
+
+| Tipo de vida | Descripción |
+| :----------- | :---------- |
+| **Normal** | Viviste y moriste sin hacer nada memorable |
+| **Aventurera** | Viajaste, descubriste cosas, tal vez salvaste al mundo |
+| **Noble** | Subiste de posición, gobernaste, hiciste leyes |
+| **Oscura** | Tomaste caminos prohibidos, mataste, mentiste, sobreviviste |
+| **Redimida** | Cometiste errores, pero al final intentaste enmendarte |
+| **Trágica** | Tenías potencial, pero caíste por errores, traiciones o mala suerte |
+| **Legendaria** | Tu nombre se canta en todas partes, incluso después de muerto |
+
+---
+
+## 🪙 NO HAY UN CAMINO CORRECTO
+
+El juego no premia la bondad, ni castiga la maldad. Simplemente te da libertad. Lo demás depende de ti.
+
+---
+
+## 🌟 FRASE FINAL PARA EL PLAN
+
+> "Este no es un juego sobre salvar al mundo. Es un juego sobre vivir una vida. Una vida que no elegiste. Pero que tú defines. Y el mundo, sin importar qué, te recordará a su manera."
+
+---
+
+## 🛠️ TECNOLOGÍAS Y ARQUITECTURA
+
+### **Tecnologías Principales:**
+- **Framework**: Python + Kivy 2.3.1
+- **UI**: Archivos .kv + animaciones CSS-like
+- **Audio**: SoundLoader de Kivy
+- **Fuentes**: Press Start 2P + Determination Mono
+- **Base de datos**: SQLite local
+- **Compilación**: Buildozer para Android
+
+### **Motor del Juego y Interfaz de Usuario (Todo en Python - Local en el Dispositivo Android):**
+* **Lenguaje:** **Python**
+* **Framework UI:** **Kivy** (para el renderizado de la interfaz estilo pixel art y retro, y manejo de eventos)
+* **Empaquetado Android (APK/AAB):** **Buildozer** (para compilar la aplicación Kivy en un APK/AAB firmable para Android y publicable en Google Play Store)
+* **Base de Datos Local:** **SQLite** (gestionada por Python, posiblemente con SQLAlchemy)
+* **Librerías Python:** `json`, `random`, `numpy` (si se requieren cálculos numéricos), librerías para manejo de texto/cadenas complejas
+* **Manejo de Audio:** Funcionalidades de audio de Kivy
+
+---
+
+## 🎨 ESTILO VISUAL Y UI
+
+### **Estilo Visual Undertale/Deltarune/Celeste:**
+- **Fondo**: Negro puro `rgba: 0, 0, 0, 1`
+- **Texto principal**: Blanco `rgba: 1, 1, 1, 1`
+- **Acentos**: Amarillo retro `rgba: 1, 1, 0.7, 1`
+- **Bordes**: Blancos gruesos para estilo pixelado
+- **Fuentes**: Press Start 2P (principal), pixel_font.ttf (alternativa)
+
+### **Resoluciones de Pantalla Objetivo y Escalado de Píxeles:**
+* **Resolución Interna/Base de Píxeles Virtuales:** Se definirá una resolución de "píxeles virtuales" para el diseño base de la UI (ej., `width: 320px`, `height: 240px` o `width: 480px`, `height: 270px`, que son proporciones de aspecto de juegos clásicos). Kivy trabajará con estas unidades.
+* **Adaptación a Pantallas Físicas:** Kivy escalará esta resolución interna para llenar la pantalla del dispositivo Android.
+* **Manejo de Proporciones de Aspecto:** Para las pantallas Android modernas (que a menudo tienen proporciones de aspecto no estándar como 19:9 o 20:9), la UI se ajustará manteniendo la proporción de aspecto del diseño base.
+
+---
+
+## 🎵 AUDIO GUIDELINES
+
+### **Fuentes de Música CC0:**
+- **OpenGameArt.org**: Fuente principal - buscar etiquetas "chiptune", "8-bit", "16-bit", "retro", "RPG music"
+- **Kenney.nl**: UI Audio Pack - CC0, perfecto para sonidos de interfaz
+- **Licencias**: Preferir CC0, máximo CC-BY
+- **Formatos**: MP3 (menú), OGG (juego), WAV (efectos)
+- **Volumen**: Sistema de control dinámico implementado
+- **Loops**: Música debe hacer loop seamless
+
+### **Música Actual Implementada:**
+- ✅ **"The Bard's Tale"** - Menú principal (CC0) por RandomMind
+- ✅ **"8-Bit Battle Loop"** - Combates normales (CC0) por Wolfgang_
+- ✅ **"8 bit battle theme"** - Batallas intensas (CC0) por celestialghost8
+
+---
+
+## 📁 ORGANIZACIÓN DEL PROYECTO
+
 ```
 proyecto/
 ├── game/                   # 🎮 Código principal de la aplicación
@@ -21,31 +205,48 @@ proyecto/
 │   │   ├── fonts/         # ✍️ Fuentes pixeladas
 │   │   └── images/        # 🖼️ Pixel art
 │   ├── logic/             # 🧠 Lógica del juego (futuro)
+│   │   ├── world_generator.py# Generación inicial de mundo, personaje y familia
+│   │   ├── story_engine.py   # Gestión de ramificaciones, avance narrativo
+│   │   ├── character.py      # Modelo de personaje y atributos
+│   │   ├── world_events.py   # Lógica de eventos aleatorios y emergentes
+│   │   ├── npc_manager.py    # Lógica para gestión de NPCs
+│   │   ├── location_arcs.py  # Lógica para gestionar arcos de historia
+│   │   ├── legacy_system.py  # Lógica de Legado y Reencarnación
+│   │   └── utils.py          # Utilidades diversas
 │   ├── data/              # 📊 Datos JSON del juego
+│   │   ├── nodes/         # Archivos JSON de nodos narrativos
+│   │   ├── npcs/          # Datos de NPCs fijos
+│   │   ├── locations/     # Datos de ubicaciones y arcos de historia
+│   │   └── items/         # Datos de objetos
 │   ├── db/                # 💾 Base de datos SQLite
+│   │   └── game.db        # Archivo de la base de datos SQLite
 │   └── buildozer.spec     # 📱 Configuración Android
 ├── .gitignore             # 🚫 Archivos a ignorar
 ├── requirements.txt       # 📦 Dependencias Python
 └── README.md              # 📖 Documentación
 ```
 
-## Reglas de Desarrollo
+---
 
-### 🎯 Objetivos Específicos
-- **Interfaz retro auténtica**: Estilo Undertale/Deltarune/Celeste
-- **Audio inmersivo**: Música CC0 de alta calidad
-- **Experiencia offline**: Todo en el dispositivo
-- **Optimizado Android**: Compilación con Buildozer
+## 🚀 COMANDOS DE DESARROLLO
 
-### 🔧 Tecnologías Principales
-- **Framework**: Python + Kivy 2.3.1
-- **UI**: Archivos .kv + animaciones CSS-like
-- **Audio**: SoundLoader de Kivy
-- **Fuentes**: Press Start 2P + Determination Mono
-- **Base de datos**: SQLite local
-- **Compilación**: Buildozer para Android
+### **Comandos Principales:**
+```bash
+# ✅ Ejecutar aplicación (CORRECTO para PowerShell)
+cd game; python main.py
 
-### 📋 Convenciones de Código
+# ❌ Este comando NO funciona en PowerShell:
+# cd game && python main.py  # && no es válido en PowerShell
+
+# Instalar dependencias
+pip install -r requirements.txt
+
+# Preparar para Android
+cd game; buildozer init
+cd game; buildozer android debug
+```
+
+### **Convenciones de Código:**
 
 #### Python (main.py)
 ```python
@@ -77,63 +278,65 @@ class GameScreen(BoxLayout):
     padding: [20, 20, 20, 20]
 ```
 
-### 🎨 Estilo Visual
-- **Fondo**: Negro puro `rgba: 0, 0, 0, 1`
-- **Texto principal**: Blanco `rgba: 1, 1, 1, 1`
-- **Acentos**: Amarillo retro `rgba: 1, 1, 0.7, 1`
-- **Bordes**: Blancos gruesos para estilo pixelado
-- **Fuentes**: Press Start 2P (principal), pixel_font.ttf (alternativa)
+---
 
-### 🎵 Audio Guidelines
-- **Fuentes**: Solo OpenGameArt.org, Kenney.nl
-- **Licencias**: Preferir CC0, máximo CC-BY
-- **Formatos**: MP3 (menú), OGG (juego), WAV (efectos)
-- **Volumen**: Sistema de control dinámico implementado
-- **Loops**: Música debe hacer loop seamless
+## 📄 FORMATO DE NODOS JSON
 
-### 📁 Organización de Archivos
-- **Audio**: `assets/audio/` - Separar por tipo (menu_music.mp3, battle_music.ogg)
-- **Imágenes**: `assets/images/` - PNG optimizadas, pixel art
-- **Fuentes**: `assets/fonts/` - Solo TTF, nombres descriptivos
-- **UI**: `ui/` - Un archivo .kv por pantalla
-- **Datos**: `data/` - JSON para configuración del juego
-
-### 🚀 Comandos de Desarrollo
-```bash
-# Ejecutar aplicación (desde directorio raíz)
-cd game && python main.py
-
-# Instalar dependencias
-pip install -r requirements.txt
-
-# Preparar para Android
-cd game && buildozer init
-cd game && buildozer android debug
+```json
+{
+  "id": "evento_inicio_pobreza",
+  "type": "start",
+  "location_arc": "aldea_campesina",
+  "title": "Nacimiento en la Pobreza",
+  "image": "birth_poor_village.png",
+  "text": "Naciste en una aldea humilde, rodeado de hambre y enfermedades. El aire era pesado, la esperanza escasa.",
+  "music": "melancholy_theme.ogg",
+  "sfx": "baby_cry.wav",
+  "options": [
+    {
+      "text": "Intentar trabajar desde joven",
+      "next_node_id": "evento_trabajo_duro"
+    },
+    {
+      "text": "Buscar educación a toda costa",
+      "next_node_id": "evento_estudio"
+    }
+  ],
+  "effects": {
+    "health_change": -5,
+    "money_change": 0,
+    "memory_add": "Primeros años de privación."
+  },
+  "npcs_present": ["OldManGrumpy", "YoungMaria"]
+}
 ```
 
-### 🎮 Características Implementadas (v0.1)
-- ✅ Menú principal con animaciones
-- ✅ Sistema de audio completo
-- ✅ Fuentes pixeladas cargadas
-- ✅ Interfaz negro retro
-- ✅ Controles de volumen
-- ✅ Música CC0 integrada
-- ✅ Estructura preparada para juego
+---
 
-### 🔄 Próximos Pasos
-1. **Sistema de juego principal**: Generación de vidas aleatorias
-2. **NPCs dinámicos**: Personajes condicionales
-3. **Arcos de historia**: Narrativa basada en ubicaciones
-4. **Sistema de tiempo**: Envejecimiento y consecuencias
-5. **Base de datos**: Persistencia de progreso
+## ✨ ESTADO ACTUAL (v0.1)
 
-### 📱 Consideraciones Android
-- **Resolución**: 480x800 para desarrollo, responsive para dispositivos
-- **Performance**: Optimizar assets y loops de audio
-- **Permisos**: Solo storage para guardar partidas
-- **Buildozer**: Configurado para API 33, arquitecturas ARM
+### **✅ Completado:**
+- 🖤 Interfaz estilo Undertale/Deltarune/Celeste con fondo negro
+- 🎵 Sistema de audio completo con música de fondo  
+- 🎨 Fuentes pixeladas (Press Start 2P + Determination Mono)
+- ✨ Animaciones sutiles (breathing, fade, glow, typewriter)
+- 🎛️ Controles de audio (play/stop, volumen, toggle)
+- 📱 Preparado para compilación Android
+- 🎵 Música CC0 integrada ("The Bard's Tale" + batallas)
+- 📋 Documentación completa (README, CREDITS)
+- 🗂️ Estructura de proyecto completa
 
-### 🎯 Filosofía del Juego
+### **🔄 En desarrollo:**
+- Sistema de juego principal (generación de vidas aleatorias)
+- Lógica de NPCs dinámicos y condicionales
+- Arcos de historia por localización
+- Sistema de tiempo y envejecimiento
+- Base de datos de persistencia
+
+---
+
+## 🎯 FILOSOFÍA DEL JUEGO
+
 **"No eliges quién eres. Solo vives lo que te toca."**
 - Generación completamente aleatoria de personaje inicial
 - Decisiones con consecuencias permanentes
@@ -142,6 +345,108 @@ cd game && buildozer android debug
 - Experiencia única en cada playthrough
 
 ---
-*Estas reglas aseguran consistencia en el desarrollo y mantienen la visión del proyecto enfocada en la experiencia retro auténtica.*
+
+## 🔄 PRÓXIMOS PASOS SUGERIDOS
+
+**Al finalizar cada mensaje, el asistente debe sugerir 2-3 próximos pasos concretos basados en:**
+
+### **Categorías de próximos pasos:**
+1. **Sistema de juego**: Implementar generación de vidas, NPCs, arcos de historia
+2. **UI/UX**: Mejorar interfaz, añadir pantallas, efectos visuales
+3. **Audio**: Expandir biblioteca de música, implementar SFX
+4. **Contenido**: Crear nodos narrativos, NPCs, ubicaciones
+5. **Optimización**: Mejorar rendimiento, preparar para Android
+6. **Testing**: Probar funcionalidades, corregir bugs
+
+### **Formato sugerido:**
+```
+🔄 **Próximos pasos sugeridos:**
+1. **[Categoría]**: [Descripción específica]
+2. **[Categoría]**: [Descripción específica] 
+3. **[Categoría]**: [Descripción específica]
+```
+
+---
+
+### **Instrucción de Commit para el Código Generado:**
+
+**Cada vez que genere código que deba ser integrado en el proyecto, enviaré un mensaje de commit y las instrucciones de push para su repositorio.**
+
+```bash
+git remote add origin git@github.com:casmian/AlifeIsArandomJournney.git
+git branch -M main
+git push -u origin main
+```
+
+---
+
+## 🐛 ERRORES COMUNES Y SOLUCIONES
+
+### **⚠️ Lista de Errores Documentados**
+
+#### **1. Error de Pantalla Negra al Iniciar**
+- **Síntomas**: La aplicación inicia pero muestra solo pantalla negra
+- **Causas Comunes**:
+  - Archivos `.kv` no se cargan correctamente en `build()`
+  - Errores de sintaxis en archivos `.kv` (especialmente escapes)
+- **Solución**: Verificar que `Builder.load_file()` se llame antes de crear las pantallas
+
+#### **2. Error de Escape en Archivos .kv**
+- **Síntomas**: `unexpected character after line continuation character`
+- **Causas**: Escape incorrecto de comillas simples: `\\'` en lugar de `\'`
+- **Solución Correcta**:
+  ```yaml
+  # ❌ INCORRECTO:
+  text: 'A LIFE\\'S\\nJOURNEY'
+  
+  # ✅ CORRECTO:
+  text: 'A LIFE\'S\nJOURNEY'
+  ```
+
+#### **3. Métodos Faltantes en AudioManager**
+- **Síntomas**: `'AudioManager' object has no attribute 'load_menu_music'`
+- **Solución**: Siempre agregar método wrapper específico:
+  ```python
+  def load_menu_music(self):
+      """Cargar música específica del menú"""
+      menu_music_path = "assets/audio/menu_music.mp3"
+      return self.load_background_music(menu_music_path)
+  ```
+
+#### **4. Callbacks de UI Faltantes**
+- **Síntomas**: `'LifeJourneyApp' object has no attribute 'on_option_selected'`
+- **Causa**: Archivos `.kv` referencian métodos que no existen en Python
+- **Solución**: Verificar todos los `on_press:` y `on_release:` en archivos `.kv`
+
+#### **5. Problemas de PowerShell en Windows**
+- **Síntomas**: `El token '&&' no es un separador de instrucciones válido`
+- **Solución**: 
+  ```bash
+  # ❌ NO funciona en PowerShell:
+  cd game && python main.py
+  
+  # ✅ CORRECTO en PowerShell:
+  cd game; python main.py
+  ```
+
+### **🔧 Checklist de Verificación Pre-Commit**
+1. ✅ Verificar sintaxis de archivos `.kv` (escapes correctos)
+2. ✅ Confirmar que todos los métodos referenciados en `.kv` existen
+3. ✅ Cargar archivos `.kv` explícitamente en `build()`
+4. ✅ Probar comandos de PowerShell antes de documentar
+5. ✅ Verificar que todos los recursos existen antes de referenciarlos
+
+### **🚨 Al Encontrar Errores Nuevos**
+**Cuando se encuentren errores no documentados aquí:**
+1. Agregar descripción del síntoma
+2. Documentar la causa raíz
+3. Proporcionar solución exacta
+4. Actualizar el checklist si es necesario
+
+---
+
+*Estas reglas aseguran consistencia en el desarrollo y mantienen la visión del proyecto enfocada en la experiencia retro auténtica y la simulación profunda de vida.*
+
+
 
 

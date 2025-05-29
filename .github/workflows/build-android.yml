@@ -6,6 +6,12 @@ on:
       - 'v*'
   workflow_dispatch:  # Permite ejecutar manualmente
 
+# Añadir permisos explícitos para releases
+permissions:
+  contents: write
+  actions: read
+  packages: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -61,8 +67,11 @@ jobs:
     - name: Setup buildozer and verify spec
       run: |
         cd game
-        buildozer init || echo "Buildozer already initialized"
-        cat buildozer.spec | head -20
+        echo "🔍 Verificando buildozer.spec existente..."
+        ls -la buildozer.spec || echo "❌ No buildozer.spec found"
+        echo "🔍 Contenido del buildozer.spec:"
+        cat buildozer.spec | head -20 || echo "❌ No se puede leer buildozer.spec"
+        echo "🔍 Estructura del directorio:"
         ls -la
         
     - name: Build APK with detailed logging
@@ -71,58 +80,91 @@ jobs:
         echo "🚀 Iniciando compilación APK..."
         buildozer android debug --verbose 2>&1 | tee build.log
     
-    - name: Debug build artifacts
+    - name: Find all APK files (comprehensive search)
       if: always()
       run: |
         cd game
-        echo "📁 Estructura de directorios:"
-        find . -name "*.apk" -type f -exec ls -la {} \;
-        echo "📋 Contenido de bin/:"
-        ls -la bin/ || echo "❌ No bin directory found"
-        echo "📋 Contenido de .buildozer/:"
-        ls -la .buildozer/ || echo "❌ No .buildozer directory found"
-        echo "📝 Últimas líneas del log:"
-        tail -50 build.log || echo "❌ No build.log found"
+        echo "🔍 Búsqueda COMPLETA de archivos APK..."
+        echo "📁 Búsqueda recursiva desde directorio actual:"
+        find . -name "*.apk" -type f -exec ls -la {} \; || echo "❌ No se encontraron APKs en directorio actual"
+        echo "📁 Búsqueda en .buildozer:"
+        find .buildozer -name "*.apk" -type f -exec ls -la {} \; 2>/dev/null || echo "❌ No se encontraron APKs en .buildozer"
+        echo "📁 Contenido de bin/:"
+        ls -la bin/ 2>/dev/null || echo "❌ No existe directorio bin/"
+        echo "📁 Contenido de .buildozer/android/platform/build-**/outputs/:"
+        find .buildozer -path "*/outputs/*" -name "*.apk" -exec ls -la {} \; 2>/dev/null || echo "❌ No APKs en outputs"
+        echo "📁 Contenido de .buildozer/android/platform/build-**/build/:"
+        find .buildozer -path "*/build/*" -name "*.apk" -exec ls -la {} \; 2>/dev/null || echo "❌ No APKs en build"
     
-    - name: Upload APK Artifact
-      if: success()
+    - name: Create bin directory and copy APKs
+      if: always()
+      run: |
+        cd game
+        echo "📦 Creando directorio bin/ y copiando APKs..."
+        mkdir -p bin
+        # Buscar y copiar todos los APKs encontrados
+        find . -name "*.apk" -type f -not -path "./bin/*" -exec cp {} bin/ \; 2>/dev/null || echo "❌ No se encontraron APKs para copiar"
+        echo "📋 Contenido final de bin/:"
+        ls -la bin/ || echo "❌ No existe directorio bin/"
+    
+    - name: Debug build artifacts and logs
+      if: always()
+      run: |
+        cd game
+        echo "📝 Últimas líneas del log de compilación:"
+        tail -50 build.log || echo "❌ No build.log found"
+        echo "📋 Estructura completa del directorio:"
+        find . -maxdepth 3 -type d | head -20
+    
+    - name: Upload APK Artifact (buscar en múltiples ubicaciones)
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: alifeisarandomjourney-${{ github.ref_name }}-debug
-        path: game/bin/*.apk
+        path: |
+          game/bin/*.apk
+          game/.buildozer/android/platform/build-**/outputs/**/*.apk
+          game/**/*.apk
+        if-no-files-found: warn
         retention-days: 30
     
-    - name: Upload build logs (if failure)
-      if: failure()
+    - name: Upload build logs (always)
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: build-logs-${{ github.ref_name }}
         path: |
           game/build.log
           game/.buildozer/android/platform/build-**/logs/**
+        if-no-files-found: warn
         retention-days: 7
     
-    - name: Create Release (if tag)
-      if: startsWith(github.ref, 'refs/tags/') && success()
-      uses: softprops/action-gh-release@v2
-      with:
-        files: game/bin/*.apk
-        draft: false
-        prerelease: true
-        generate_release_notes: true
-        name: "A Life Is A Random Journey ${{ github.ref_name }}"
-        body: |
-          🎮 **A Life Is A Random Journey ${{ github.ref_name }}**
-          
-          🚀 **APK Debug Build**
-          - 📱 Optimizado para móvil (360x640)
-          - 🎨 Interfaz estilo Undertale/Deltarune
-          - 🎵 Música CC0 incluida
-          - 🎯 Versión de desarrollo
-          
-          📋 **Instalación:**
-          1. Descargar el APK
-          2. Habilitar "Fuentes desconocidas" en Android
-          3. Instalar y disfrutar!
+    - name: Create Release (if tag and APK found)
+      if: startsWith(github.ref, 'refs/tags/')
+      run: |
+        cd game
+        APK_FILE=$(find . -name "*.apk" -type f | head -1)
+        if [ -n "$APK_FILE" ]; then
+          echo "✅ APK encontrado: $APK_FILE"
+          gh release create ${{ github.ref_name }} \
+            --title "A Life Is A Random Journey ${{ github.ref_name }}" \
+            --notes "🎮 **A Life Is A Random Journey ${{ github.ref_name }}**
+            
+            🚀 **APK Debug Build**
+            - 📱 Optimizado para móvil (360x640)
+            - 🎨 Interfaz estilo Undertale/Deltarune
+            - 🎵 Música CC0 incluida
+            - 🎯 Versión de desarrollo
+            
+            📋 **Instalación:**
+            1. Descargar el APK
+            2. Habilitar \"Fuentes desconocidas\" en Android
+            3. Instalar y disfrutar!" \
+            --prerelease \
+            "$APK_FILE"
+        else
+          echo "❌ No se encontró APK para el release"
+          exit 1
+        fi
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 

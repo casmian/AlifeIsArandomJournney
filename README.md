@@ -79,10 +79,33 @@ buildozer android debug
 - **Offline Completo**: Toda la lógica reside en el dispositivo
 - **Estilo Retro**: UI pixelada inspirada en Undertale/Deltarune
 
+## 🎵 Música y Audio
+
+- **"The Bard's Tale"** - Menú principal (CC0)
+- **"8-Bit Battle Loop"** - Combates normales (CC0)
+- **"8 bit battle theme"** - Batallas intensas (CC0)
+- **SFX Recomendados** - Kenney.nl UI Audio Pack
+
+## ✨ Estado Actual (v0.1)
+
+**✅ Completado:**
+- 🖤 Interfaz estilo Undertale/Deltarune/Celeste con fondo negro
+- 🎵 Sistema de audio completo con música de fondo  
+- 🎨 Fuentes pixeladas (Press Start 2P + Determination Mono)
+- ✨ Animaciones sutiles (breathing, fade, glow, typewriter)
+- 🎛️ Controles de audio (play/stop, volumen, toggle)
+- 📱 Preparado para compilación Android
+
+**🔄 En desarrollo:**
+- Sistema de juego principal (next step)
+- Lógica de generación de vidas
+- NPCs dinámicos
+- Arcos de historia por localización
+
 ## 📜 Licencia
 
-[Especificar licencia aquí]
+Proyecto personal en desarrollo.
 
 ## 🤝 Contribución
 
-[Especificar guías de contribución aquí] 
+Proyecto en fase de desarrollo inicial.

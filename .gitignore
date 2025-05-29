@@ -28,6 +28,18 @@ venv/
 env/
 ENV/
 
+## Node.js & React Native
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+## Expo
+.expo/
+dist/
+web-build/
+
 ## IDEs
 .vscode/
 .idea/
@@ -76,4 +88,4 @@ temp/
 download_*.py
 
 ## Mantener estructura pero ignorar contenido vacío
-!**/.gitkeep 
+!**/.gitkeep

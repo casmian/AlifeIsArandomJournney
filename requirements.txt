@@ -1,9 +1,26 @@
-# Dependencias principales para A Life Is A Random Journey
-kivy>=2.1.0
-kivymd>=1.1.1
-sqlalchemy>=1.4.0
-numpy>=1.21.0
-plyer>=2.1.0
+# 🎮 A Life Is A Random Journey - Dependencias Python
+
+# Framework principal para aplicaciones móviles
+kivy==2.3.1
+
+# Material Design para Kivy
+kivymd==1.2.0
+
+# ORM y base de datos
+sqlalchemy==2.0.41
+
+# Utilidades numéricas
+numpy==2.1.0
+
+# Acceso a funcionalidades del dispositivo móvil
+plyer==2.1.0
+
+# Compilación para Android
+buildozer==1.5.0
+
+# Herramientas de desarrollo (opcionales)
+# pylint==3.0.0
+# black==24.0.0
 
 # Dependencias adicionales para desarrollo
 pytest>=7.0.0 

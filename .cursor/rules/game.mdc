@@ -144,3 +144,4 @@ cd game && buildozer android debug
 ---
 *Estas reglas aseguran consistencia en el desarrollo y mantienen la visión del proyecto enfocada en la experiencia retro auténtica.*
 
+
